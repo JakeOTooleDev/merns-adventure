@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./App.css";
 import * as Realm from "realm-web";
 
 import UserDetail from "./components/UserDetail";
 import Login from "./components/Login";
+import { RealmProvider } from "./hooks/context";
 
 // * Created Login and UserDetail following the Realm Web quickstart guide: https://docs.mongodb.com/realm/web/react-web-quickstart/
 const REALM_APP_ID = "mernadventure-ydamf";
@@ -22,19 +23,21 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-      <div>
-        {user ? (
-          <UserDetail user={user} />
-        ) : (
-          <Login app={app} Realm={Realm} setUser={setUser} />
-        )}
+    <RealmProvider>
+      <div className="App">
+        <h1>Hello World</h1>
+        <div>
+          {user ? (
+            <UserDetail user={user} />
+          ) : (
+            <Login app={app} Realm={Realm} setUser={setUser} />
+          )}
+        </div>
+        <div>
+          <button onClick={() => getPlayer()}>Find players</button>
+        </div>
       </div>
-      <div>
-        <button onClick={() => getPlayer()}>Find players</button>
-      </div>
-    </div>
+    </RealmProvider>
   );
 }
 
