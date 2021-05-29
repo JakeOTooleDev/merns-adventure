@@ -8,20 +8,22 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
   console.log(className);
   return (
     <div className={cx(styles.main, className)}>
-      <header>
+      <header className={styles.header}>
         <h1>MERN's Point and Click Adventure</h1>
         <UserDetails currentUser={currentUser} currentPlayer={currentPlayer} />
       </header>
       <section className={styles.gameplay} aria-label="gameplay">
         The scene will be located here.
       </section>
-      <section aria-label="communication">
+      <section className={styles.communication} aria-label="communication">
         Communications to the player will appear here.
       </section>
-      <section aria-label="inventory">
+      <section className={styles.inventory} aria-label="inventory">
         The user's inventory will be shown here
       </section>
-      <nav>Any menu options or navigation will go here.</nav>
+      <nav className={styles.nav}>
+        Any menu options or navigation will go here.
+      </nav>
     </div>
   );
 };

@@ -1,11 +1,30 @@
 .main {
   background-color: lightblue;
+  display: grid;
+  grid-template-rows: 10% 60% 30%;
+  grid-template-columns: 10% 60% 30%;
+  grid-template-areas:
+    ". header header"
+    "nav gameplay gameplay"
+    ". communication inventory";
 }
 
-/* .inner {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-} */
+.header {
+  grid-area: header;
+}
+
+.gameplay {
+  grid-area: gameplay;
+}
+
+.inventory {
+  grid-area: inventory;
+}
+
+.communication {
+  grid-area: communication;
+}
+
+.nav {
+  grid-area: nav;
+}
