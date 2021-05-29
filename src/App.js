@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as Realm from "realm-web";
 import Main from "./pages/Main";
 
-import "./App.css";
+import styles from "./App.module.css";
 
 const REALM_APP_ID = "mernadventure-ydamf";
 const app = new Realm.App({ id: REALM_APP_ID });
@@ -34,7 +34,7 @@ function App() {
     loginTestUser();
   }, []);
   return (
-    <div className="App">
+    <div className={styles.App}>
       <Main currentUser={currentUser} currentPlayer={currentPlayer} />
     </div>
   );
