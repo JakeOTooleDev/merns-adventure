@@ -1,8 +1,11 @@
 .main {
   background-color: lightblue;
-  height: 100vh;
 }
 
-.gameplay {
-  color: red;
-}
+/* .inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+} */

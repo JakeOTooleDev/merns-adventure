@@ -127,3 +127,25 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/* Learned about aspect ratios for web here: https://css-tricks.com/aspect-ratio-boxes/ */
+/* styles calculated with: https://ratiobuddy.com/*/
+
+.outer {
+  position: relative;
+}
+
+.outer::before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-top: calc(9 / 16 * 100%);
+}
+
+.inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

@@ -1,10 +1,13 @@
+import cx from "classnames";
+
 import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.css";
 
-export const Main = ({ currentPlayer, currentUser }) => {
+export const Main = ({ className, currentPlayer, currentUser }) => {
+  console.log(className);
   return (
-    <div className={styles.main}>
+    <div className={cx(styles.main, className)}>
       <header>
         <h1>MERN's Point and Click Adventure</h1>
         <UserDetails currentUser={currentUser} currentPlayer={currentPlayer} />

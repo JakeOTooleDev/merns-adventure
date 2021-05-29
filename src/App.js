@@ -34,8 +34,12 @@ function App() {
     loginTestUser();
   }, []);
   return (
-    <div className={styles.App}>
-      <Main currentUser={currentUser} currentPlayer={currentPlayer} />
+    <div className={`${styles.outer}`}>
+      <Main
+        className={styles.inner}
+        currentUser={currentUser}
+        currentPlayer={currentPlayer}
+      />
     </div>
   );
 }
