@@ -15,6 +15,7 @@ export const Main = () => {
   };
   return (
     <>
+      <h1>Hello World</h1>
       {user ? (
         <UserDetails user={user} />
       ) : (
