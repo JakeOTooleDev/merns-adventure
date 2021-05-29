@@ -1,3 +1,4 @@
+/* * Guides to CSS Grid https://css-tricks.com/snippets/css/complete-guide-grid/ */
 .main {
   background-color: lightblue;
   display: grid;
@@ -7,6 +8,9 @@
     ". header header"
     "nav gameplay gameplay"
     ". communication inventory";
+  gap: 4px;
+  margin: 32px;
+  padding: 16px;
 }
 
 .header {
@@ -27,4 +31,8 @@
 
 .nav {
   grid-area: nav;
+}
+
+.gameSection {
+  border: 2px solid black;
 }

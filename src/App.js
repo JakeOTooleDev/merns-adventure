@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as Realm from "realm-web";
 import Main from "./pages/Main";
 
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 
 const REALM_APP_ID = "mernadventure-ydamf";
 const app = new Realm.App({ id: REALM_APP_ID });

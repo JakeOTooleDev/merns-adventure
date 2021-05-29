@@ -2,7 +2,7 @@ import cx from "classnames";
 
 import UserDetails from "../components/UserDetail";
 
-import styles from "./Main.module.css";
+import styles from "./Main.module.scss";
 
 export const Main = ({ className, currentPlayer, currentUser }) => {
   console.log(className);
