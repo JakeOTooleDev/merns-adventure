@@ -26,6 +26,10 @@
 .gameplay {
   @extend %game-section;
   grid-area: gameplay;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 100%;
+  grid-template-areas: "leftNav game rightNav";
   &.keyCursor {
     cursor: url(./key-solid.png), auto;
   }
@@ -48,4 +52,9 @@
 .nav {
   @extend %game-section;
   grid-area: nav;
+}
+
+.navButton {
+  height: 100%;
+  width: 100%;
 }

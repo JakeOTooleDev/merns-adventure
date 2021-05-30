@@ -38,12 +38,18 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
         aria-label="gameplay"
         onMouseDown={() => setActiveItem("")}
       >
-        The scene will be located here.
         <div>
+          <button className={styles.navButton}>Left Nav</button>
+        </div>
+        <div>
+          The scene will be located here.
           <Key
             className={cx({ [styles.activeItem]: activeItem === "key" })}
             onItemClick={onItemClick}
           />
+        </div>
+        <div>
+          <button className={styles.navButton}>Right Nav</button>
         </div>
       </section>
       <section className={styles.communication} aria-label="communication">
