@@ -9,7 +9,9 @@ const app = new Realm.App({ id: REALM_APP_ID });
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [currentPlayer, setCurrentPlayer] = useState({});
+  const [currentPlayer, setCurrentPlayer] = useState({
+    inventory: [],
+  });
 
   useEffect(() => {
     const loginTestUser = async () => {

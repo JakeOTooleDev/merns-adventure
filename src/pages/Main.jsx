@@ -7,10 +7,16 @@ import UserDetails from "../components/UserDetail";
 import styles from "./Main.module.scss";
 
 export const Main = ({ className, currentPlayer, currentUser }) => {
-  const [activeItem, setActiveItem] = useState();
+  const [activeItem, setActiveItem] = useState("");
 
-  const onItemClick = ({ item }) => {
+  const onItemClick = (item, event) => {
     console.log(`onItemClick occurred. ${item} has been clicked`);
+    console.log(event.target.style);
+    setActiveItem(item);
+  };
+
+  const cursorStyle = {
+    [styles.key]: activeItem === "key",
   };
 
   return (
@@ -19,15 +25,23 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
         <h1>MERN's Point and Click Adventure</h1>
         <UserDetails currentUser={currentUser} currentPlayer={currentPlayer} />
       </header>
-      <section className={styles.gameplay} aria-label="gameplay">
+      <section
+        className={cx(styles.gameplay, cursorStyle)}
+        aria-label="gameplay"
+        onMouseDown={() => setActiveItem("")}
+      >
         The scene will be located here.
-        <Key onClick={onItemClick} />
+        <Key onItemClick={onItemClick} />
       </section>
       <section className={styles.communication} aria-label="communication">
         Communications to the player will appear here.
       </section>
       <section className={styles.inventory} aria-label="inventory">
         The user's inventory will be shown here
+        {currentPlayer.inventory &&
+          currentPlayer.inventory.map((item, index) => (
+            <div key={`${item}-${index}`}>{item}</div>
+          ))}
       </section>
       <nav className={styles.nav}>
         Any menu options or navigation will go here.
