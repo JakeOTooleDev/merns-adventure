@@ -1,11 +1,18 @@
+import { useState } from "react";
 import cx from "classnames";
 
+import { Key } from "../components/interactive-objects/key";
 import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.scss";
 
 export const Main = ({ className, currentPlayer, currentUser }) => {
-  console.log(className);
+  const [activeItem, setActiveItem] = useState();
+
+  const onItemClick = ({ item }) => {
+    console.log(`onItemClick occurred. ${item} has been clicked`);
+  };
+
   return (
     <div className={cx(styles.main, className)}>
       <header className={styles.header}>
@@ -14,6 +21,7 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
       </header>
       <section className={styles.gameplay} aria-label="gameplay">
         The scene will be located here.
+        <Key onClick={onItemClick} />
       </section>
       <section className={styles.communication} aria-label="communication">
         Communications to the player will appear here.

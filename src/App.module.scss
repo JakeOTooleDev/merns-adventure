@@ -1,6 +1,5 @@
 /* Learned about aspect ratios for web here: https://css-tricks.com/aspect-ratio-boxes/ */
 /* styles calculated with: https://ratiobuddy.com/*/
-
 .outer {
   position: relative;
 }
@@ -18,4 +17,5 @@
   right: 0;
   bottom: 0;
   left: 0;
+  padding: 80px 120px 160px 120px;
 }
