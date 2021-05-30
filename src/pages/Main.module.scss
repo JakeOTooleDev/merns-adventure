@@ -29,7 +29,7 @@
   display: grid;
   grid-template-columns: 10% 80% 10%;
   grid-template-rows: 100%;
-  grid-template-areas: "leftNav game rightNav";
+  grid-template-areas: "leftNav scene rightNav";
   &.keyCursor {
     cursor: url(./key-solid.png), auto;
   }
@@ -54,7 +54,21 @@
   grid-area: nav;
 }
 
-.navButton {
+%navButton {
   height: 100%;
   width: 100%;
+}
+
+.leftNav {
+  @extend %navButton;
+  grid-area: leftNav;
+}
+
+.rightNav {
+  @extend %navButton;
+  grid-area: rightNav;
+}
+
+.scene {
+  grid-area: scene;
 }

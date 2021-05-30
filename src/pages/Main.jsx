@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import cx from "classnames";
 
 import { Key } from "../components/interactive-objects/key";
+import LivingRoom from "../components/scences/living-room/LivingRoom";
+import Study from "../components/scences/study/Study";
+import PlayerNavButton from "../components/PlayerNavButton";
 import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.scss";
@@ -15,6 +19,10 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
     console.log(event.target.style);
     setActiveItem(item);
     setMessage(`You picked up the ${item}`);
+  };
+
+  const onLocationChange = () => {
+    console.log("We be movin'");
   };
 
   const cursorStyle = {
@@ -38,19 +46,39 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
         aria-label="gameplay"
         onMouseDown={() => setActiveItem("")}
       >
-        <div>
-          <button className={styles.navButton}>Left Nav</button>
-        </div>
-        <div>
-          The scene will be located here.
-          <Key
-            className={cx({ [styles.activeItem]: activeItem === "key" })}
-            onItemClick={onItemClick}
+        <Router>
+          <PlayerNavButton
+            onLocationChange={onLocationChange}
+            label="Left Nav"
+            className={styles.leftNav}
+            to="/livingRoom"
           />
-        </div>
-        <div>
-          <button className={styles.navButton}>Right Nav</button>
-        </div>
+
+          <div className={styles.scene}>
+            The scene will be located here.
+            <Switch>
+              <Route path="/livingRoom">
+                <LivingRoom />
+              </Route>
+              <Route path="/study">
+                <Study />
+              </Route>
+              <Route path="/">
+                <div>Home</div>
+                <Key
+                  className={cx({ [styles.activeItem]: activeItem === "key" })}
+                  onItemClick={onItemClick}
+                />
+              </Route>
+            </Switch>
+          </div>
+          <PlayerNavButton
+            onLocationChange={onLocationChange}
+            label="Right Nav"
+            className={styles.rightNav}
+            to="/study"
+          />
+        </Router>
       </section>
       <section className={styles.communication} aria-label="communication">
         Communications to the player will appear here.
