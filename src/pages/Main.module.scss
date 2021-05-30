@@ -26,10 +26,13 @@
 .gameplay {
   @extend %game-section;
   grid-area: gameplay;
-  &.key {
+  &.keyCursor {
     cursor: url(./key-solid.png), auto;
   }
-  // cursor: progress;
+}
+
+.activeItem {
+  display: none;
 }
 
 .inventory {

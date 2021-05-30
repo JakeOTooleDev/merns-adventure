@@ -1,10 +1,15 @@
+import cx from "classnames";
+
 import { ReactComponent as KeySvg } from "./key-solid.svg";
 
 import styles from "./Key.module.scss";
 
-export const Key = ({ onItemClick }) => {
+export const Key = ({ className, onItemClick }) => {
   return (
-    <button onClick={(event) => onItemClick("key", event)}>
+    <button
+      className={cx(className)}
+      onClick={(event) => onItemClick("key", event)}
+    >
       <KeySvg className={styles.key} />
     </button>
   );

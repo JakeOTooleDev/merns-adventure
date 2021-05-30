@@ -8,19 +8,27 @@ import styles from "./Main.module.scss";
 
 export const Main = ({ className, currentPlayer, currentUser }) => {
   const [activeItem, setActiveItem] = useState("");
+  const [message, setMessage] = useState("");
 
   const onItemClick = (item, event) => {
     console.log(`onItemClick occurred. ${item} has been clicked`);
     console.log(event.target.style);
     setActiveItem(item);
+    setMessage(`You picked up the ${item}`);
   };
 
   const cursorStyle = {
-    [styles.key]: activeItem === "key",
+    [styles.keyCursor]: activeItem === "key",
   };
 
   return (
-    <div className={cx(styles.main, className)}>
+    <div
+      className={cx(styles.main, className)}
+      onMouseDown={() => {
+        setMessage("");
+        setActiveItem("");
+      }}
+    >
       <header className={styles.header}>
         <h1>MERN's Point and Click Adventure</h1>
         <UserDetails currentUser={currentUser} currentPlayer={currentPlayer} />
@@ -31,10 +39,16 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
         onMouseDown={() => setActiveItem("")}
       >
         The scene will be located here.
-        <Key onItemClick={onItemClick} />
+        <div>
+          <Key
+            className={cx({ [styles.activeItem]: activeItem === "key" })}
+            onItemClick={onItemClick}
+          />
+        </div>
       </section>
       <section className={styles.communication} aria-label="communication">
         Communications to the player will appear here.
+        <div>{message}</div>
       </section>
       <section className={styles.inventory} aria-label="inventory">
         The user's inventory will be shown here
