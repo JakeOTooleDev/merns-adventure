@@ -8,31 +8,40 @@
     ". header header"
     "nav gameplay gameplay"
     ". communication inventory";
-  gap: 4px;
-  margin: 32px;
-  padding: 16px;
+  // gap: 16px;
+  // margin: 32px;
+  // padding: 16px;
+}
+
+%game-section {
+  border: 2px solid black;
+  margin: 4px;
 }
 
 .header {
+  @extend %game-section;
   grid-area: header;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .gameplay {
+  @extend %game-section;
   grid-area: gameplay;
 }
 
 .inventory {
+  @extend %game-section;
   grid-area: inventory;
 }
 
 .communication {
+  @extend %game-section;
   grid-area: communication;
 }
 
 .nav {
+  @extend %game-section;
   grid-area: nav;
-}
-
-.gameSection {
-  border: 2px solid black;
 }

@@ -2,8 +2,8 @@
 export const UserDetail = ({ currentUser, currentPlayer }) => {
   return (
     <div>
-      <h1>Loggid in with user id: {currentUser?.id}</h1>
-      <h1>{JSON.stringify(currentPlayer)}</h1>
+      <p>User ID: {currentUser?.id}</p>
+      <p>Username: {currentPlayer.username}</p>
     </div>
   );
 };
