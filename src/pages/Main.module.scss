@@ -30,6 +30,7 @@
   grid-template-columns: 10% 80% 10%;
   grid-template-rows: 100%;
   grid-template-areas: "leftNav scene rightNav";
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
   &.keyCursor {
     cursor: url(./key-solid.png), auto;
   }

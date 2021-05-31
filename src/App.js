@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Realm from "realm-web";
 import Main from "./pages/Main";
 
@@ -12,6 +12,10 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState({
     inventory: [],
   });
+  // * https://reactjs.org/docs/hooks-reference.html#useref
+  // ? Still unsure if useRef is the proper hook to use in this case.
+  // ? I think creating the mongodb object would make more sense if a normal login/logout setup existed. You'd want to re-render/update mongodb if a new user logged in.
+  let mongodb = useRef({});
 
   useEffect(() => {
     const loginTestUser = async () => {
@@ -24,9 +28,9 @@ function App() {
       setCurrentUser(user);
 
       // * Created collection handle following the MongoDB Data Access setup guide: https://docs.mongodb.com/realm/web/mongodb/#set-up-your-project
-      const mongodb = app.currentUser.mongoClient("mongodb-atlas");
+      mongodb.current = app.currentUser.mongoClient("mongodb-atlas");
 
-      const player = await mongodb
+      const player = await mongodb.current
         .db("mernAdventure")
         .collection("player")
         .findOne({ username: "PotatoMan" });
@@ -41,6 +45,7 @@ function App() {
         className={styles.inner}
         currentUser={currentUser}
         currentPlayer={currentPlayer}
+        mongodb={mongodb}
       />
     </div>
   );

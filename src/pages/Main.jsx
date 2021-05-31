@@ -10,7 +10,7 @@ import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.scss";
 
-export const Main = ({ className, currentPlayer, currentUser }) => {
+export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   const [activeItem, setActiveItem] = useState("");
   const [message, setMessage] = useState("");
 
@@ -19,10 +19,6 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
     console.log(event.target.style);
     setActiveItem(item);
     setMessage(`You picked up the ${item}`);
-  };
-
-  const onLocationChange = () => {
-    console.log("We be movin'");
   };
 
   const cursorStyle = {
@@ -48,7 +44,7 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
       >
         <Router>
           <PlayerNavButton
-            onLocationChange={onLocationChange}
+            mongodb={mongodb}
             label="Left Nav"
             className={styles.leftNav}
             to="/livingRoom"
@@ -73,7 +69,7 @@ export const Main = ({ className, currentPlayer, currentUser }) => {
             </Switch>
           </div>
           <PlayerNavButton
-            onLocationChange={onLocationChange}
+            mongodb={mongodb}
             label="Right Nav"
             className={styles.rightNav}
             to="/study"
