@@ -52,7 +52,6 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           />
 
           <div className={styles.scene}>
-            The scene will be located here.
             <Switch>
               <Route path="/livingRoom">
                 <LivingRoom />
@@ -62,10 +61,10 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
               </Route>
               <Route path="/">
                 <Outside />
-                <Key
+                {/* <Key
                   className={cx({ [styles.activeItem]: activeItem === "key" })}
                   onItemClick={onItemClick}
-                />
+                /> */}
               </Route>
             </Switch>
           </div>

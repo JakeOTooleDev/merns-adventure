@@ -1,5 +1,7 @@
 import { ReactComponent as OutsideLinesOnly } from "./outside_linesOnly.svg";
 
-export const Outside = () => <OutsideLinesOnly />;
+import styles from "./Outside.module.scss";
+
+export const Outside = () => <OutsideLinesOnly className={styles.outside} />;
 
 export default Outside;
