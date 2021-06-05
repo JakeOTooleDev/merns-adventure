@@ -24,5 +24,6 @@ This project is currently in development. This application will be presented as 
   - _NOTE_: At the time of writing these notes, Sass is at version 6.0.0. Make sure to install version 5.0.0 with Create React App. It currently does not support 6.0.0
 - Using CSS Modules with Create React App: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
 - Locking in an aspect ration
+  - This was my initial strategy for ensuring that the gameplay area the user plays in stays a fixed ratio height and width so no matter the screensize your view of the game isn't distorted. By using SVGs for the gameplay, I no longer have to worry about this. SVGs are great for holding an aspect ratio and ensuring sub-sections of the SVG remain in the same location relative to the rest of the image.
   - CSS-Tricks, Aspect Ratio Boxes: https://css-tricks.com/aspect-ratio-boxes/
   - Generate styling for specific aspect ratio with Ratio Buddy: https://ratiobuddy.com/

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import cx from "classnames";
 
-import { Key } from "../components/interactive-objects/key";
 import LivingRoom from "../components/scences/living-room/LivingRoom";
 import Study from "../components/scences/study/Study";
 import PlayerNavButton from "../components/PlayerNavButton";
@@ -61,10 +60,6 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
               </Route>
               <Route path="/">
                 <Outside />
-                {/* <Key
-                  className={cx({ [styles.activeItem]: activeItem === "key" })}
-                  onItemClick={onItemClick}
-                /> */}
               </Route>
             </Switch>
           </div>
