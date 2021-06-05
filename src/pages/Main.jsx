@@ -1,12 +1,13 @@
+import cx from "classnames";
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import cx from "classnames";
 
 import LivingRoom from "../components/scences/living-room/LivingRoom";
+import Outside from "../components/scences/outside/Outside";
 import Study from "../components/scences/study/Study";
+
 import PlayerNavButton from "../components/PlayerNavButton";
 import UserDetails from "../components/UserDetail";
-import Outside from "../components/scences/outside/Outside";
 
 import styles from "./Main.module.scss";
 
