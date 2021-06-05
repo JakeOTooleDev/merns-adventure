@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import cx from "classnames";
 
@@ -7,6 +7,7 @@ import LivingRoom from "../components/scences/living-room/LivingRoom";
 import Study from "../components/scences/study/Study";
 import PlayerNavButton from "../components/PlayerNavButton";
 import UserDetails from "../components/UserDetail";
+import Outside from "../components/scences/outside/Outside";
 
 import styles from "./Main.module.scss";
 
@@ -60,7 +61,7 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
                 <Study />
               </Route>
               <Route path="/">
-                <div>Home</div>
+                <Outside />
                 <Key
                   className={cx({ [styles.activeItem]: activeItem === "key" })}
                   onItemClick={onItemClick}
