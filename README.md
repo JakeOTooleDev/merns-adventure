@@ -6,6 +6,9 @@ This project is currently in development. This application will be presented as 
 
 ## Attributions
 
+- Artwork was created by [Sarah Bogosh](https://sarahjbogosh.wixsite.com/badponies)
+  - Rights to these work are separate from this repository. Please contact Sarah Bogosh for use of artwork.
+  - Check out [Sarah's Instagram](https://www.instagram.com/badponies.illustration/?hl=en) for more rad works of art.
 - Based app created with [Create React App](https://github.com/facebook/create-react-app).
 - Some icons sourced from Font Awesome. [Like to license for use](https://fontawesome.com/license).
 
