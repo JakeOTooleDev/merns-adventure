@@ -24,9 +24,7 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
     setLocation(location);
   };
 
-  const onItemClick = async (item, event) => {
-    console.log(`onItemClick occurred. ${item} has been clicked`);
-    // setActiveItem(item);
+  const onSceneItemClick = async (item) => {
     try {
       const outcome = await mongodb.current
         .db("mernAdventure")
@@ -37,6 +35,11 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const onInventoryItemClick = (item) => {
+    console.log(`inventory item ${item} clicked`);
+    setActiveItem(item);
   };
 
   const cursorStyle = {
@@ -50,8 +53,8 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   };
 
   const inventoryItems = {
-    key: <Key />,
-    note: <Note />,
+    key: <Key onItemClick={onInventoryItemClick} />,
+    note: <Note onItemClick={onInventoryItemClick} />,
   };
 
   return (
@@ -87,10 +90,10 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           {location ? locations[location] : locations[currentPlayer?.location]}
         </div>
         {!currentPlayer?.inventory?.includes("key") && (
-          <Key className={styles.item} onItemClick={onItemClick} />
+          <Key className={styles.item} onItemClick={onSceneItemClick} />
         )}
         {!currentPlayer?.inventory?.includes("note") && (
-          <Note className={styles.item} onItemClick={onItemClick} />
+          <Note className={styles.item} onItemClick={onSceneItemClick} />
         )}
         <PlayerNavButton
           mongodb={mongodb}
