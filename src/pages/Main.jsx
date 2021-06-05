@@ -49,6 +49,11 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
     study: <Study className={styles.scene} />,
   };
 
+  const inventoryItems = {
+    key: <Key />,
+    note: <Note />,
+  };
+
   return (
     <div
       className={cx(styles.main, className)}
@@ -110,7 +115,7 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
         The user's inventory will be shown here
         {currentPlayer?.inventory &&
           currentPlayer?.inventory.map((item, index) => (
-            <div key={`${item}-${index}`}>{item}</div>
+            <div key={`${item}-${index}`}>{inventoryItems[item]}</div>
           ))}
       </section>
       <nav className={styles.nav}>
