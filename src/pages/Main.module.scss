@@ -69,8 +69,8 @@
   height: 100%;
   background-color: lightblue;
   display: grid;
-  grid-template-rows: 10% 60% 30%;
-  grid-template-columns: 10% 60% 30%;
+  grid-template-rows: 5% 75% 20%;
+  grid-template-columns: 5% 60% 35%;
   grid-template-areas:
     ". header header"
     "nav gameplay gameplay"
