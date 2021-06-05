@@ -12,6 +12,8 @@ import styles from "./Main.module.scss";
 
 export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   const [activeItem, setActiveItem] = useState("");
+  // storing location in app. Location is also stored in the database
+  // current strategy is to use app state for location to try and speed up application
   const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
 
@@ -62,7 +64,11 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
         />
 
         <div className={styles.sceneContainer}>
-          {location ? locations[location] : <Outside />}
+          {/* When app initially loads, get last location from player data. */}
+          {/* Once the player has used a nav button, it will be using the apps state to figure out the location. */}
+          {/* The theory is this will be more perfomative. The database will still be updated with the current location everytime. */}
+          {/* Current risk is if the user loses their connection, they will be able to move around, but their location will not be saved */}
+          {location ? locations[location] : locations[currentPlayer?.location]}
         </div>
         <PlayerNavButton
           mongodb={mongodb}
@@ -85,8 +91,8 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
       </section>
       <section className={styles.inventory} aria-label="inventory">
         The user's inventory will be shown here
-        {currentPlayer.inventory &&
-          currentPlayer.inventory.map((item, index) => (
+        {currentPlayer?.inventory &&
+          currentPlayer?.inventory.map((item, index) => (
             <div key={`${item}-${index}`}>{item}</div>
           ))}
       </section>
