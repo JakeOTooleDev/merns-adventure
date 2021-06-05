@@ -44,6 +44,7 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
 
   const cursorStyle = {
     [styles.keyCursor]: activeItem === "key",
+    [styles.noteCursor]: activeItem === "note",
   };
 
   const locations = {
