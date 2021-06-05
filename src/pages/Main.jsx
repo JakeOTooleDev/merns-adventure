@@ -63,7 +63,6 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
 
         <div className={styles.scene}>
           {location ? locations[location] : <Outside />}
-          {/* <Outside /> */}
         </div>
         <PlayerNavButton
           mongodb={mongodb}
