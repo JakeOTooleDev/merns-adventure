@@ -31,9 +31,9 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   };
 
   const locations = {
-    livingRoom: <LivingRoom />,
-    outside: <Outside />,
-    study: <Study />,
+    livingRoom: <LivingRoom className={styles.scene} />,
+    outside: <Outside className={styles.scene} />,
+    study: <Study className={styles.scene} />,
   };
 
   return (
@@ -61,7 +61,7 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           to="livingRoom"
         />
 
-        <div className={styles.scene}>
+        <div className={styles.sceneContainer}>
           {location ? locations[location] : <Outside />}
         </div>
         <PlayerNavButton

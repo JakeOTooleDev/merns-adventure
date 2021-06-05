@@ -87,6 +87,11 @@
   grid-area: rightNav;
 }
 
-.scene {
+.sceneContainer {
   grid-area: scene;
+}
+
+.scene {
+  height: 100%;
+  width: 100%;
 }
