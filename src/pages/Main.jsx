@@ -54,8 +54,18 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   };
 
   const inventoryItems = {
-    key: <Key onItemClick={onInventoryItemClick} />,
-    note: <Note onItemClick={onInventoryItemClick} />,
+    key: (
+      <Key
+        className={cx({ [styles.activeItem]: activeItem === "key" })}
+        onItemClick={onInventoryItemClick}
+      />
+    ),
+    note: (
+      <Note
+        className={cx({ [styles.activeItem]: activeItem === "note" })}
+        onItemClick={onInventoryItemClick}
+      />
+    ),
   };
 
   return (
