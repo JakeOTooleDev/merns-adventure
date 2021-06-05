@@ -1,6 +1,6 @@
 // * https://reactrouter.com/web/api/Hooks/usehistory
 // * https://docs.mongodb.com/realm/web/mongodb/#update-a-single-document
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const PlayerNavButton = (props) => {
   const updatePlayerLocation = async () => {
@@ -14,11 +14,12 @@ const PlayerNavButton = (props) => {
       console.error(err, "location not updated");
     }
   };
-  const history = useHistory();
+  // const history = useHistory();
   return (
     <button
       onClick={() => {
-        history.push(props.to);
+        props.onPlayerNavClick(props.to);
+        // history.push(props.to);
         updatePlayerLocation();
       }}
       className={props.className}

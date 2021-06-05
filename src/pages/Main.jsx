@@ -1,6 +1,5 @@
 import cx from "classnames";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import LivingRoom from "../components/scences/living-room/LivingRoom";
 import Outside from "../components/scences/outside/Outside";
@@ -13,7 +12,12 @@ import styles from "./Main.module.scss";
 
 export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   const [activeItem, setActiveItem] = useState("");
+  const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
+
+  const onPlayerNavClick = (location) => {
+    setLocation(location);
+  };
 
   const onItemClick = (item, event) => {
     console.log(`onItemClick occurred. ${item} has been clicked`);
@@ -24,6 +28,12 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
 
   const cursorStyle = {
     [styles.keyCursor]: activeItem === "key",
+  };
+
+  const locations = {
+    livingRoom: <LivingRoom />,
+    outside: <Outside />,
+    study: <Study />,
   };
 
   return (
@@ -43,34 +53,32 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
         aria-label="gameplay"
         onMouseDown={() => setActiveItem("")}
       >
-        <Router>
-          <PlayerNavButton
-            mongodb={mongodb}
-            label="Left Nav"
-            className={styles.leftNav}
-            to="/livingRoom"
-          />
+        <PlayerNavButton
+          mongodb={mongodb}
+          onPlayerNavClick={onPlayerNavClick}
+          label="Left Nav"
+          className={styles.leftNav}
+          to="livingRoom"
+        />
 
-          <div className={styles.scene}>
-            <Switch>
-              <Route path="/livingRoom">
-                <LivingRoom />
-              </Route>
-              <Route path="/study">
-                <Study />
-              </Route>
-              <Route path="/">
-                <Outside />
-              </Route>
-            </Switch>
-          </div>
-          <PlayerNavButton
-            mongodb={mongodb}
-            label="Right Nav"
-            className={styles.rightNav}
-            to="/study"
-          />
-        </Router>
+        <div className={styles.scene}>
+          {location ? locations[location] : <Outside />}
+          {/* <Outside /> */}
+        </div>
+        <PlayerNavButton
+          mongodb={mongodb}
+          onPlayerNavClick={onPlayerNavClick}
+          label="Right Nav"
+          className={styles.rightNav}
+          to="study"
+        />
+        <PlayerNavButton
+          mongodb={mongodb}
+          onPlayerNavClick={onPlayerNavClick}
+          label="Center Nav"
+          className={styles.centerNav}
+          to="outside"
+        />
       </section>
       <section className={styles.communication} aria-label="communication">
         Communications to the player will appear here.

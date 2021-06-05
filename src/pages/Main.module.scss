@@ -21,6 +21,14 @@
   display: none;
 }
 
+.centerNav {
+  grid-area: scene;
+  height: 30px;
+  width: 100px;
+  align-self: center;
+  justify-self: center;
+}
+
 .communication {
   @extend %game-section;
   grid-area: communication;
