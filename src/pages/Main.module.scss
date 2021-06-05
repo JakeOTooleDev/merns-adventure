@@ -60,6 +60,12 @@
   grid-area: inventory;
 }
 
+.item {
+  grid-area: scene;
+  height: 50px;
+  width: 50px;
+}
+
 .leftNav {
   @extend %navButton;
   grid-area: leftNav;

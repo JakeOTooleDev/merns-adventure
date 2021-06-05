@@ -5,6 +5,9 @@ import LivingRoom from "../components/scences/living-room/LivingRoom";
 import Outside from "../components/scences/outside/Outside";
 import Study from "../components/scences/study/Study";
 
+import { Key } from "../components/interactive-objects/key";
+import Note from "../components/interactive-objects/note/Note";
+
 import PlayerNavButton from "../components/PlayerNavButton";
 import UserDetails from "../components/UserDetail";
 
@@ -21,11 +24,19 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
     setLocation(location);
   };
 
-  const onItemClick = (item, event) => {
+  const onItemClick = async (item, event) => {
     console.log(`onItemClick occurred. ${item} has been clicked`);
-    console.log(event.target.style);
-    setActiveItem(item);
-    setMessage(`You picked up the ${item}`);
+    // setActiveItem(item);
+    try {
+      const outcome = await mongodb.current
+        .db("mernAdventure")
+        .collection("player")
+        .updateOne({ username: "PotatoMan" }, { $push: { inventory: item } });
+      console.log(outcome);
+      setMessage(`You picked up the ${item}`);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const cursorStyle = {
@@ -70,6 +81,12 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           {/* Current risk is if the user loses their connection, they will be able to move around, but their location will not be saved */}
           {location ? locations[location] : locations[currentPlayer?.location]}
         </div>
+        {!currentPlayer?.inventory?.includes("key") && (
+          <Key className={styles.item} onItemClick={onItemClick} />
+        )}
+        {!currentPlayer?.inventory?.includes("note") && (
+          <Note className={styles.item} onItemClick={onItemClick} />
+        )}
         <PlayerNavButton
           mongodb={mongodb}
           onPlayerNavClick={onPlayerNavClick}
