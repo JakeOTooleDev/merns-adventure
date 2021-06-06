@@ -8,6 +8,7 @@ import Study from "../components/scences/study/Study";
 import { Key } from "../components/interactive-objects/key";
 import Note from "../components/interactive-objects/note/Note";
 import { ReactComponent as Lock } from "./lock-solid.svg";
+import { ReactComponent as Unlock } from "./unlock-solid.svg";
 
 import PlayerNavButton from "../components/PlayerNavButton";
 import UserDetails from "../components/UserDetail";
@@ -33,6 +34,10 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   const onInventoryItemClick = (item) => {
     console.log(`inventory item ${item} clicked`);
     setActiveItem(item);
+  };
+
+  const onActionItemClick = () => {
+    console.log("Action Item Clicked!");
   };
 
   const cursorStyle = {
@@ -113,8 +118,12 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           className={styles.centerNav}
           to="outside"
         />
-        <button className={styles.lock}>
-          <Lock />
+        <button className={styles.lock} onClick={() => onActionItemClick()}>
+          {currentPlayer?.gameProgress?.unlockedBriefCase ? (
+            <Unlock />
+          ) : (
+            <Lock />
+          )}
         </button>
       </section>
       <section className={styles.communication} aria-label="communication">
