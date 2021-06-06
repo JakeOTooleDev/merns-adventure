@@ -36,8 +36,11 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
     setActiveItem(item);
   };
 
-  const onActionItemClick = () => {
-    console.log("Action Item Clicked!");
+  const onActionItemClick = async (action) => {
+    console.log(`action: ${action}, activeItem: ${activeItem}`);
+    const outcome = await currentUser.functions.checkAction(action, activeItem);
+    setMessage(`${outcome} on completing ${action}`);
+    setActiveItem("");
   };
 
   const cursorStyle = {
@@ -71,7 +74,6 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
       className={cx(styles.main, className)}
       onMouseDown={() => {
         setMessage("");
-        setActiveItem("");
       }}
     >
       <header className={styles.header}>
@@ -81,7 +83,6 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
       <section
         className={cx(styles.gameplay, cursorStyle)}
         aria-label="gameplay"
-        onMouseDown={() => setActiveItem("")}
       >
         <PlayerNavButton
           mongodb={mongodb}
@@ -118,8 +119,11 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           className={styles.centerNav}
           to="outside"
         />
-        <button className={styles.lock} onClick={() => onActionItemClick()}>
-          {currentPlayer?.gameProgress?.unlockedBriefCase ? (
+        <button
+          className={styles.lock}
+          onClick={() => onActionItemClick("unlockedBriefcase")}
+        >
+          {currentPlayer?.gameProgress?.unlockedBriefcase ? (
             <Unlock />
           ) : (
             <Lock />
