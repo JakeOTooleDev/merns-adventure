@@ -32,8 +32,8 @@ function App() {
       mongodb.current = app.currentUser.mongoClient("mongodb-atlas");
 
       const player = await mongodb.current
-        .db("mernAdventure")
-        .collection("player")
+        .db("mernsAdventure")
+        .collection("players")
         .findOne({ username: "PotatoMan" });
       console.log(player);
       setCurrentPlayer(player);

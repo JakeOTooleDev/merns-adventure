@@ -27,8 +27,8 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   const onSceneItemClick = async (item) => {
     try {
       const outcome = await mongodb.current
-        .db("mernAdventure")
-        .collection("player")
+        .db("mernsAdventure")
+        .collection("players")
         .updateOne({ username: "PotatoMan" }, { $push: { inventory: item } });
       console.log(outcome);
       setMessage(`You picked up the ${item}`);

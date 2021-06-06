@@ -2,8 +2,8 @@ const PlayerNavButton = (props) => {
   const updatePlayerLocation = async () => {
     try {
       const outcome = await props.mongodb.current
-        .db("mernAdventure")
-        .collection("player")
+        .db("mernsAdventure")
+        .collection("players")
         .updateOne({ username: "PotatoMan" }, { $set: { location: props.to } });
       console.log(outcome);
     } catch (err) {
