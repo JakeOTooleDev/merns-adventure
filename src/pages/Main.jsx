@@ -26,7 +26,6 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
 
   const onSceneItemClick = async (item) => {
     const outcome = await currentUser.functions.pickUpItem(item);
-    console.log(outcome);
     setMessage(`${outcome} on picking up ${item}.`);
   };
 
