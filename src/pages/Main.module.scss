@@ -74,6 +74,17 @@
   grid-area: leftNav;
 }
 
+.lock {
+  grid-area: scene;
+  justify-self: right;
+  height: fit-content;
+}
+.lock {
+  svg {
+    height: 80px;
+  }
+}
+
 .main {
   height: 100%;
   background-color: lightblue;
