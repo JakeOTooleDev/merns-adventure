@@ -25,16 +25,9 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
   };
 
   const onSceneItemClick = async (item) => {
-    try {
-      const outcome = await mongodb.current
-        .db("mernsAdventure")
-        .collection("players")
-        .updateOne({ username: "PotatoMan" }, { $push: { inventory: item } });
-      console.log(outcome);
-      setMessage(`You picked up the ${item}`);
-    } catch (err) {
-      console.error(err);
-    }
+    const outcome = await currentUser.functions.pickUpItem(item);
+    console.log(outcome);
+    setMessage(`${outcome} on picking up ${item}.`);
   };
 
   const onInventoryItemClick = (item) => {
