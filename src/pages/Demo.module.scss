@@ -1,0 +1,27 @@
+.demo {
+  button {
+    width: fit-content;
+  }
+  img {
+    // width: 100%;
+    width: 100%;
+  }
+}
+
+.game {
+  border: 2px solid black;
+  min-height: 450px;
+  width: 400px;
+}
+
+.info {
+  border: 2px solid black;
+  padding-left: 12px;
+  width: 388px;
+}
+
+.inventory {
+  border: 2px solid black;
+  height: 150px;
+  width: 400px;
+}

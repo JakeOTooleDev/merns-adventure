@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import * as Realm from "realm-web";
+import cx from "classnames";
 
 import Login from "./components/Login";
 import Main from "./pages/Main";
+import Demo from "./pages/Demo";
+import DemoLocation from "./pages/DemoLocation";
 
 import styles from "./App.module.scss";
 
@@ -53,13 +56,25 @@ function App() {
     };
     loginTestUser();
   }, []);
+
+  async function updatePlayer() {
+    const updatedPlayer = await players.findOne({ _id: currentUser.id });
+    setCurrentPlayer(updatedPlayer);
+  }
+
   return (
-    <div className={`${styles.outer}`}>
-      <Main
+    <div className={cx(styles.outer)}>
+      {/* <Main
         className={styles.inner}
         currentUser={currentUser}
         currentPlayer={currentPlayer}
         players={players}
+      /> */}
+      <DemoLocation
+        currentUser={currentUser}
+        currentPlayer={currentPlayer}
+        players={players}
+        updatePlayer={updatePlayer}
       />
     </div>
   );
