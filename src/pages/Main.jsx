@@ -15,7 +15,7 @@ import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.scss";
 
-export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
+export const Main = ({ className, currentPlayer, currentUser, players }) => {
   const [activeItem, setActiveItem] = useState("");
   // storing location in app. Location is also stored in the database
   // current strategy is to use app state for location to try and speed up application
@@ -85,7 +85,7 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
         aria-label="gameplay"
       >
         <PlayerNavButton
-          mongodb={mongodb}
+          players={players}
           onPlayerNavClick={onPlayerNavClick}
           label="Left Nav"
           className={styles.leftNav}
@@ -106,14 +106,14 @@ export const Main = ({ className, currentPlayer, currentUser, mongodb }) => {
           <Note className={styles.item} onItemClick={onSceneItemClick} />
         )}
         <PlayerNavButton
-          mongodb={mongodb}
+          players={players}
           onPlayerNavClick={onPlayerNavClick}
           label="Right Nav"
           className={styles.rightNav}
           to="study"
         />
         <PlayerNavButton
-          mongodb={mongodb}
+          players={players}
           onPlayerNavClick={onPlayerNavClick}
           label="Center Nav"
           className={styles.centerNav}

@@ -1,0 +1,7 @@
+.microscopeLine {
+  fill-opacity: 0%;
+  &:hover {
+    fill-opacity: 50%;
+    fill: yellow;
+  }
+}

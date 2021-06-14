@@ -1,10 +1,17 @@
-const PlayerNavButton = (props) => {
+const PlayerNavButton = ({
+  className,
+  label,
+  onPlayerNavClick,
+  players,
+  to,
+}) => {
   const updatePlayerLocation = async () => {
+    console.log(players);
     try {
-      const outcome = await props.mongodb.current
-        .db("mernsAdventure")
-        .collection("players")
-        .updateOne({ username: "PotatoMan" }, { $set: { location: props.to } });
+      const outcome = await players.updateOne(
+        { username: "PotatoMan" },
+        { $set: { location: to } }
+      );
       console.log(outcome);
     } catch (err) {
       console.error(err, "location not updated");
@@ -13,12 +20,12 @@ const PlayerNavButton = (props) => {
   return (
     <button
       onClick={() => {
-        props.onPlayerNavClick(props.to);
+        onPlayerNavClick(to);
         updatePlayerLocation();
       }}
-      className={props.className}
+      className={className}
     >
-      {props?.label}
+      {label}
     </button>
   );
 };
