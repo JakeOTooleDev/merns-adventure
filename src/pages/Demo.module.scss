@@ -3,14 +3,13 @@
     width: fit-content;
   }
   img {
-    // width: 100%;
     width: 100%;
   }
 }
 
 .game {
   border: 2px solid black;
-  min-height: 450px;
+
   width: 400px;
 }
 
@@ -24,4 +23,21 @@
   border: 2px solid black;
   height: 150px;
   width: 400px;
+}
+
+.locations {
+  display: flex;
+  justify-content: space-around;
+}
+
+.update {
+  display: flex;
+  padding-top: 10px;
+  justify-content: center;
+}
+
+.key {
+  &:hover {
+    cursor: pointer;
+  }
 }

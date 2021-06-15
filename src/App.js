@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Main from "./pages/Main";
 import Demo from "./pages/Demo";
 import DemoLocation from "./pages/DemoLocation";
+import DemoGameProgress from "./pages/DemoGameProgress";
 
 import styles from "./App.module.scss";
 
@@ -70,7 +71,7 @@ function App() {
         currentPlayer={currentPlayer}
         players={players}
       /> */}
-      <DemoLocation
+      <DemoGameProgress
         currentUser={currentUser}
         currentPlayer={currentPlayer}
         players={players}

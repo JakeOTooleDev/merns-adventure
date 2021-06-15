@@ -25,16 +25,18 @@ export const Demo = ({ players, currentPlayer, currentUser, updatePlayer }) => {
         </button>
       </div>
       <div className={styles.info}>
-        <h2>Player</h2>
+        <h2>MongoDB</h2>
         <p>"location": {JSON.stringify(currentPlayer.location)}</p>
         <p>"inventory": {JSON.stringify(inventory)}</p>
         <p>"gameProgress": {JSON.stringify(currentPlayer.gameProgress)}</p>
-        <button onClick={() => updatePlayer()}>Update Player</button>
       </div>
       <div className={styles.inventory}>
         <h2>Inventory</h2>
         {currentPlayer &&
           currentPlayer.inventory.map((item) => <button>{item}</button>)}
+      </div>
+      <div>
+        <button onClick={() => updatePlayer()}>Update Game State</button>
       </div>
     </div>
   );

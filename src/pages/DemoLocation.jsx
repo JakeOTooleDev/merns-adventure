@@ -11,10 +11,13 @@ export const DemoLocation = ({
   currentUser,
   updatePlayer,
 }) => {
-  const [location, setLocation] = useState([]);
+  const [location, setLocation] = useState("outside");
 
   const updateLocation = async (newLocation) => {
-    await players.updateOne({ _id: currentUser.id }, { location: newLocation });
+    await players.updateOne(
+      { _id: currentUser.id },
+      { $set: { location: newLocation } }
+    );
     setLocation(newLocation);
   };
 
@@ -30,16 +33,22 @@ export const DemoLocation = ({
       <div className={styles.game}>
         <h2>Game</h2>
         <div>{playerLoc[currentPlayer.location]}</div>
-        <button onClick={() => updateLocation("outside")}>outside</button>
-        <button onClick={() => updateLocation("livingRoom")}>livingRoom</button>
-        <button onClick={() => updateLocation("study")}>study</button>
+        <div className={styles.locations}>
+          <button onClick={() => updateLocation("outside")}>outside</button>
+          <button onClick={() => updateLocation("livingRoom")}>
+            livingRoom
+          </button>
+          <button onClick={() => updateLocation("study")}>study</button>
+        </div>
+        <div className={styles.update}>
+          <button onClick={() => updatePlayer()}>Update Game State</button>
+        </div>
       </div>
       <div className={styles.info}>
-        <h2>Player</h2>
+        <h2>MongoDB</h2>
         <p>"location": {JSON.stringify(location)}</p>
         <p>"inventory": {JSON.stringify(currentPlayer.inventory)}</p>
         <p>"gameProgress": {JSON.stringify(currentPlayer.gameProgress)}</p>
-        <button onClick={() => updatePlayer()}>Update Player</button>
       </div>
     </div>
   );
