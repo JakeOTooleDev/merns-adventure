@@ -71,7 +71,7 @@ function App() {
         currentPlayer={currentPlayer}
         players={players}
       /> */}
-      <DemoGameProgress
+      <Demo
         currentUser={currentUser}
         currentPlayer={currentPlayer}
         players={players}

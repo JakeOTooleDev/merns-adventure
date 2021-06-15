@@ -12,7 +12,7 @@ export const DemoLocation = ({
   const keyPickup = async () => {
     await players.updateOne(
       { _id: currentUser.id },
-      { $set: { gameProgress: { keyPickup: true } } }
+      { $set: { gameProgress: { pickedUpKey: true } } }
     );
     setGameProgress({ pickedUpKey: true });
   };
@@ -42,7 +42,7 @@ export const DemoLocation = ({
               height="441px"
             />
           </g>
-          {!currentPlayer?.gameProgress?.keyPickup && (
+          {!currentPlayer?.gameProgress?.pickedUpKey && (
             <g
               onClick={() => {
                 keyPickup();
@@ -91,7 +91,7 @@ export const DemoLocation = ({
           setGameProgress({ pickedUpKey: false });
           await players.updateOne(
             { _id: currentUser.id },
-            { $set: { gameProgress: { keyPickup: false } } }
+            { $set: { gameProgress: { pickedUpKey: false } } }
           );
         }}
       >

@@ -10,19 +10,23 @@ export const Demo = ({ players, currentPlayer, currentUser, updatePlayer }) => {
       { $push: { inventory: item } }
     );
     setInventory([item, ...inventory]);
-    // updatePlayer();
   };
 
   return (
-    <div className={styles.demo}>
+    <div>
       <h1>Demo</h1>
-      <div className={styles.items}>
+      <div className={styles.gameInventory}>
         <h2>Game</h2>
-        <button onClick={() => updateInventory("key")}>key</button>
-        <button onClick={() => updateInventory("note")}>note</button>
-        <button onClick={() => updateInventory("microscope")}>
-          microscope
-        </button>
+        <div className={styles.gameItems}>
+          <button onClick={() => updateInventory("key")}>key</button>
+          <button onClick={() => updateInventory("note")}>note</button>
+          <button onClick={() => updateInventory("microscope")}>
+            microscope
+          </button>
+        </div>
+        <div className={styles.update}>
+          <button onClick={() => updatePlayer()}>Update Game State</button>
+        </div>
       </div>
       <div className={styles.info}>
         <h2>MongoDB</h2>
@@ -35,9 +39,18 @@ export const Demo = ({ players, currentPlayer, currentUser, updatePlayer }) => {
         {currentPlayer &&
           currentPlayer.inventory.map((item) => <button>{item}</button>)}
       </div>
-      <div>
-        <button onClick={() => updatePlayer()}>Update Game State</button>
-      </div>
+      <button
+        style={{ marginTop: "60px" }}
+        onClick={async () => {
+          setInventory([]);
+          await players.updateOne(
+            { _id: currentUser.id },
+            { $set: { inventory: [] } }
+          );
+        }}
+      >
+        Reset
+      </button>
     </div>
   );
 };

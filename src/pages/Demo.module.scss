@@ -1,6 +1,10 @@
 .demo {
   button {
-    width: fit-content;
+    // width: fit-content;
+    img {
+      //   height: 20%;
+      width: 30%;
+    }
   }
   img {
     width: 100%;
@@ -10,19 +14,37 @@
 .game {
   border: 2px solid black;
 
-  width: 400px;
+  width: 600px;
+}
+
+.gameItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  button {
+    height: max-content;
+    margin: 10px;
+  }
+}
+
+.gameInventory {
+  border: 2px solid black;
+  height: 150px;
+  width: 600px;
 }
 
 .info {
   border: 2px solid black;
   padding-left: 12px;
-  width: 388px;
+  width: 588px;
+  padding-bottom: 12px;
 }
 
 .inventory {
   border: 2px solid black;
   height: 150px;
-  width: 400px;
+  width: 600px;
 }
 
 .locations {
