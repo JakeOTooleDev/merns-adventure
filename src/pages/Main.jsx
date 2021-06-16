@@ -5,43 +5,144 @@ import LivingRoom from "../components/scences/living-room/LivingRoom";
 import Outside from "../components/scences/outside/Outside";
 import Study from "../components/scences/study/Study";
 
-import { Key } from "../components/interactive-objects/key";
-import Note from "../components/interactive-objects/note/Note";
-import { ReactComponent as Lock } from "./lock-solid.svg";
-import { ReactComponent as Unlock } from "./unlock-solid.svg";
-
-import PlayerNavButton from "../components/PlayerNavButton";
-import UserDetails from "../components/UserDetail";
+import Inventory from "../components/inventory/Inventory";
+// import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.scss";
 
-export const Main = ({ className, currentPlayer, currentUser, players }) => {
+export const Main = ({
+  className,
+  currentPlayer,
+  currentUser,
+  updatePlayer,
+  players,
+}) => {
   const [activeItem, setActiveItem] = useState("");
   // storing location in app. Location is also stored in the database
   // current strategy is to use app state for location to try and speed up application
-  const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
 
-  const onPlayerNavClick = (location) => {
-    setLocation(location);
+  const resetPlayer = async () => {
+    await players.updateOne(
+      { _id: currentUser.id },
+      {
+        _id: "60b2a06de0692265ebaeb90e",
+        inventory: [],
+        location: "outside",
+        gameProgress: {
+          keyPickedUp: false,
+          microscopePickedUp: false,
+          notePickedUp: false,
+          livingLightOn: false,
+          studyLightOn: false,
+        },
+      }
+    );
+    updatePlayer();
   };
 
-  const onSceneItemClick = async (item) => {
-    const outcome = await currentUser.functions.pickUpItem(item);
-    setMessage(`${outcome} on picking up ${item}.`);
+  const onPlayerNavClick = async (to) => {
+    try {
+      await players.updateOne(
+        { _id: currentUser.id },
+        { $set: { location: to } }
+      );
+      updatePlayer();
+    } catch (err) {
+      console.error("Location not updated:", err);
+    }
   };
+
+  // const onSceneItemClick = async (item) => {
+  //   const outcome = await currentUser.functions.pickUpItem(item);
+  //   setMessage(`${outcome} on picking up ${item}.`);
+  //   updatePlayer();
+  // };
 
   const onInventoryItemClick = (item) => {
-    console.log(`inventory item ${item} clicked`);
     setActiveItem(item);
   };
 
-  const onActionItemClick = async (action) => {
-    console.log(`action: ${action}, activeItem: ${activeItem}`);
-    const outcome = await currentUser.functions.checkAction(action, activeItem);
-    setMessage(`${outcome} on completing ${action}`);
-    setActiveItem("");
+  const onLightClick = async (light) => {
+    const lights = {
+      livingRoom: {
+        $set: {
+          gameProgress: {
+            ...currentPlayer.gameProgress,
+            livingLightOn: !currentPlayer.gameProgress.livingLightOn,
+          },
+        },
+      },
+      study: {
+        $set: {
+          gameProgress: {
+            ...currentPlayer.gameProgress,
+            studyLightOn: !currentPlayer.gameProgress.studyLightOn,
+          },
+        },
+      },
+    };
+
+    try {
+      await players.updateOne({ _id: currentUser.id }, lights[light]);
+      updatePlayer();
+    } catch (err) {
+      console.error("Error turning on light:", err);
+    }
   };
+
+  const onItemClick = async (item) => {
+    const items = {
+      key: {
+        $set: {
+          gameProgress: {
+            ...currentPlayer.gameProgress,
+            keyPickedUp: true,
+          },
+        },
+      },
+      note: {
+        $set: {
+          gameProgress: {
+            ...currentPlayer.gameProgress,
+            notePickedUp: true,
+          },
+        },
+      },
+      microscope: {
+        $set: {
+          gameProgress: {
+            ...currentPlayer.gameProgress,
+            microscopePickedUp: true,
+          },
+        },
+      },
+    };
+
+    try {
+      await players.updateOne(
+        { _id: currentUser.id },
+        { $push: { inventory: item } }
+      );
+      await players.updateOne({ _id: currentUser.id }, items[item]);
+      updatePlayer();
+    } catch (err) {
+      console.error("Error adding item to inventory:", err);
+    }
+  };
+
+  // const onActionItemClick = async (action) => {
+  //   try {
+  //     const outcome = await currentUser.functions.checkAction(
+  //       action,
+  //       activeItem
+  //     );
+  //     setMessage(`${outcome} on completing ${action}`);
+  //   } catch (err) {
+  //     console.error("Error executing action function:", err);
+  //   }
+  //   setActiveItem("");
+  // };
 
   const cursorStyle = {
     [styles.keyCursor]: activeItem === "key",
@@ -49,22 +150,33 @@ export const Main = ({ className, currentPlayer, currentUser, players }) => {
   };
 
   const locations = {
-    livingRoom: <LivingRoom className={styles.scene} />,
-    outside: <Outside className={styles.scene} />,
-    study: <Study className={styles.scene} />,
-  };
-
-  const inventoryItems = {
-    key: (
-      <Key
-        className={cx({ [styles.activeItem]: activeItem === "key" })}
-        onItemClick={onInventoryItemClick}
+    livingRoom: (
+      <LivingRoom
+        className={styles.scene}
+        onPlayerNavClick={onPlayerNavClick}
+        sceneContainer={styles.sceneContainer}
+        currentPlayer={currentPlayer}
+        onLightClick={onLightClick}
+        onItemClick={onItemClick}
       />
     ),
-    note: (
-      <Note
-        className={cx({ [styles.activeItem]: activeItem === "note" })}
-        onItemClick={onInventoryItemClick}
+    outside: (
+      <Outside
+        className={styles.scene}
+        onPlayerNavClick={onPlayerNavClick}
+        sceneContainer={styles.sceneContainer}
+        currentPlayer={currentPlayer}
+        onLightClick={onLightClick}
+      />
+    ),
+    study: (
+      <Study
+        className={styles.scene}
+        onPlayerNavClick={onPlayerNavClick}
+        sceneContainer={styles.sceneContainer}
+        currentPlayer={currentPlayer}
+        onLightClick={onLightClick}
+        onItemClick={onItemClick}
       />
     ),
   };
@@ -76,74 +188,38 @@ export const Main = ({ className, currentPlayer, currentUser, players }) => {
         setMessage("");
       }}
     >
-      <header className={styles.header}>
+      {/* <header className={styles.header}>
         <h1>MERN's Point and Click Adventure</h1>
         <UserDetails currentUser={currentUser} currentPlayer={currentPlayer} />
-      </header>
-      <section
+      </header> */}
+      {/* <section
         className={cx(styles.gameplay, cursorStyle)}
         aria-label="gameplay"
-      >
-        <PlayerNavButton
-          players={players}
-          onPlayerNavClick={onPlayerNavClick}
-          label="Left Nav"
-          className={styles.leftNav}
-          to="livingRoom"
-        />
-
-        <div className={styles.sceneContainer}>
-          {/* When app initially loads, get last location from player data. */}
-          {/* Once the player has used a nav button, it will be using the apps state to figure out the location. */}
-          {/* The theory is this will be more perfomative. The database will still be updated with the current location everytime. */}
-          {/* Current risk is if the user loses their connection, they will be able to move around, but their location will not be saved */}
-          {location ? locations[location] : locations[currentPlayer?.location]}
-        </div>
-        {!currentPlayer?.inventory?.includes("key") && (
-          <Key className={styles.item} onItemClick={onSceneItemClick} />
-        )}
-        {!currentPlayer?.inventory?.includes("note") && (
-          <Note className={styles.item} onItemClick={onSceneItemClick} />
-        )}
-        <PlayerNavButton
-          players={players}
-          onPlayerNavClick={onPlayerNavClick}
-          label="Right Nav"
-          className={styles.rightNav}
-          to="study"
-        />
-        <PlayerNavButton
-          players={players}
-          onPlayerNavClick={onPlayerNavClick}
-          label="Center Nav"
-          className={styles.centerNav}
-          to="outside"
-        />
-        <button
-          className={styles.lock}
-          onClick={() => onActionItemClick("unlockedBriefcase")}
-        >
-          {currentPlayer?.gameProgress?.unlockedBriefcase ? (
-            <Unlock />
-          ) : (
-            <Lock />
-          )}
-        </button>
-      </section>
+      > */}
+      {/* <div className={styles.sceneContainer}> */}
+      {/* When app initially loads, get last location from player data. */}
+      {/* Once the player has used a nav button, it will be using the apps state to figure out the location. */}
+      {/* The theory is this will be more perfomative. The database will still be updated with the current location everytime. */}
+      {/* Current risk is if the user loses their connection, they will be able to move around, but their location will not be saved */}
+      {currentPlayer?.location
+        ? locations[currentPlayer?.location]
+        : locations[currentPlayer?.location]}
+      {/* </div> */}
+      {/* </section> */}
       <section className={styles.communication} aria-label="communication">
-        Communications to the player will appear here.
+        <p>Communications to the player will appear here.</p>
         <div>{message}</div>
+        <button onClick={resetPlayer}>Reset Player</button>
       </section>
-      <section className={styles.inventory} aria-label="inventory">
-        The user's inventory will be shown here
-        {currentPlayer?.inventory &&
-          currentPlayer?.inventory.map((item, index) => (
-            <div key={`${item}-${index}`}>{inventoryItems[item]}</div>
-          ))}
-      </section>
-      <nav className={styles.nav}>
+      <Inventory
+        activeItem={activeItem}
+        className={styles.inventory}
+        currentPlayer={currentPlayer}
+        onInventoryItemClick={onInventoryItemClick}
+      />
+      {/* <nav className={styles.nav}>
         Any menu options or navigation will go here.
-      </nav>
+      </nav> */}
     </div>
   );
 };

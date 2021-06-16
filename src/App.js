@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import * as Realm from "realm-web";
 
-import Login from "./components/Login";
 import Main from "./pages/Main";
 
 import styles from "./App.module.scss";
@@ -53,6 +52,18 @@ function App() {
     };
     loginTestUser();
   }, []);
+
+  const updatePlayer = async () => {
+    try {
+      const player = await players.findOne({
+        _id: currentUser.id,
+      });
+      setCurrentPlayer(player);
+    } catch (err) {
+      console.error("Error updating player:", err);
+    }
+  };
+
   return (
     <div className={`${styles.outer}`}>
       <Main
@@ -60,6 +71,7 @@ function App() {
         currentUser={currentUser}
         currentPlayer={currentPlayer}
         players={players}
+        updatePlayer={updatePlayer}
       />
     </div>
   );

@@ -1,0 +1,22 @@
+.highlight {
+  fill-opacity: 0%;
+  &:hover {
+    fill: yellow;
+    fill-opacity: 40%;
+    cursor: pointer;
+  }
+}
+
+.lightOff {
+  fill-opacity: 0%;
+}
+
+.lightOn {
+  fill: yellow;
+  fill-opacity: 40%;
+  cursor: pointer;
+}
+
+.horseSkullOpen {
+  display: none;
+}

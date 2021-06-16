@@ -37,10 +37,10 @@
 .gameplay {
   @extend %game-section;
   grid-area: gameplay;
-  display: grid;
-  grid-template-columns: 10% 80% 10%;
-  grid-template-rows: 100%;
-  grid-template-areas: "leftNav scene rightNav";
+  // display: grid;
+  // grid-template-columns: 10% 80% 10%;
+  // grid-template-rows: 100%;
+  // grid-template-areas: "leftNav scene rightNav";
   // https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
   &.keyCursor {
     cursor: url(./key-solid.png), auto;
@@ -87,14 +87,19 @@
 
 .main {
   height: 100%;
-  background-color: lightblue;
   display: grid;
-  grid-template-rows: 5% 75% 20%;
-  grid-template-columns: 5% 60% 35%;
+  // grid-template-rows: 5% 75% 20%;
+  // grid-template-columns: 5% 60% 35%;
+  // grid-template-areas:
+  //   ". header header"
+  //   "nav gameplay gameplay"
+  //   ". communication inventory";
+  grid-template-rows: 80% 20%;
+  grid-template-columns: 65% 35%;
   grid-template-areas:
-    ". header header"
-    "nav gameplay gameplay"
-    ". communication inventory";
+    "gameplay gameplay"
+    "communication inventory";
+  // padding: 12px;
 }
 
 .nav {
@@ -108,10 +113,15 @@
 }
 
 .sceneContainer {
-  grid-area: scene;
+  grid-area: gameplay;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 100%;
+  grid-template-areas: "leftNav scene rightNav";
 }
 
 .scene {
+  grid-area: scene;
   height: 100%;
   width: 100%;
 }

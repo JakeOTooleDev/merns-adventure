@@ -1,7 +1,33 @@
-.microscopeLine {
+.gameplay {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 100%;
+  grid-template-areas: "leftNav scene rightNav";
+}
+
+.outsideNav {
+  grid-area: leftNav;
+}
+
+.studyNav {
+  grid-area: rightNav;
+}
+
+.highlight {
   fill-opacity: 0%;
   &:hover {
-    fill-opacity: 50%;
     fill: yellow;
+    fill-opacity: 40%;
+    cursor: pointer;
   }
+}
+
+.lightOff {
+  fill-opacity: 0%;
+}
+
+.lightOn {
+  fill: yellow;
+  fill-opacity: 40%;
+  cursor: pointer;
 }
