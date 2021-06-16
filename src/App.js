@@ -71,7 +71,7 @@ function App() {
         currentPlayer={currentPlayer}
         players={players}
       /> */}
-      <Demo
+      <DemoLocation
         currentUser={currentUser}
         currentPlayer={currentPlayer}
         players={players}

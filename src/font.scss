@@ -1,6 +1,7 @@
 // * Created font scaling with https://www.type-scale.com
 
 @import url("https://fonts.googleapis.com/css?family=Poppins:400");
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap");
 
 html {
   font-size: 100%;
@@ -11,7 +12,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   line-height: 1.75;
-  color: #000000;
+  color: #21313c;
 }
 
 // p {
@@ -24,7 +25,7 @@ h3,
 h4,
 h5 {
   // margin: 3rem 0 1.38rem;
-  font-family: "Poppins", sans-serif;
+  font-family: "Barlow", sans-serif;
   font-weight: 400;
   line-height: 1.3;
 }
