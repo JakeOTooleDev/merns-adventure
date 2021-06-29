@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import * as Realm from "realm-web";
 
+import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { Password } from "primereact/password";
+
 import Main from "./pages/Main";
 
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 import styles from "./App.module.scss";
 
 function App() {
@@ -66,13 +73,22 @@ function App() {
 
   return (
     <div className={`${styles.outer}`}>
-      <Main
+      <div>
+        <form>
+          <label htmlFor="email">E-mail</label>
+          <InputText id="email" />
+          <label htmlFor="password">Password</label>
+          <Password id="password" />
+          <Button label="Submit" icon="pi pi-check" />
+        </form>
+      </div>
+      {/* <Main
         className={styles.inner}
         currentUser={currentUser}
         currentPlayer={currentPlayer}
         players={players}
         updatePlayer={updatePlayer}
-      />
+      /> */}
     </div>
   );
 }
