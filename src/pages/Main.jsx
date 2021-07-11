@@ -154,10 +154,10 @@ export const Main = ({
   //   setActiveItem("");
   // };
 
-  const cursorStyle = {
-    [styles.keyCursor]: activeItem === "key",
-    [styles.noteCursor]: activeItem === "note",
-  };
+  // const cursorStyle = {
+  //   [styles.keyCursor]: activeItem === "key",
+  //   [styles.noteCursor]: activeItem === "note",
+  // };
 
   const locations = {
     livingRoom: (
