@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import * as Realm from "realm-web";
 
 import Authentication from "./pages/Authentication";
+import Confirmation from "./pages/Confirmation";
 import Main from "./pages/Main";
 
 import "primereact/resources/themes/saga-blue/theme.css";
@@ -31,30 +33,39 @@ function App() {
   };
 
   return (
-    <div className={`${styles.outer}`}>
-      {currentUser ? (
-        <Main
-          app={app}
-          className={styles.inner}
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-          currentPlayer={currentPlayer}
-          players={players}
-          updatePlayer={updatePlayer}
-        />
-      ) : (
-        <Authentication
-          app={app}
-          Realm={Realm}
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-          currentPlayer={currentPlayer}
-          setCurrentPlayer={setCurrentPlayer}
-          players={players}
-          setPlayers={setPlayers}
-        />
-      )}
-    </div>
+    <Router>
+      <div className={`${styles.outer}`}>
+        <Switch>
+          <Route path="/confirmation">
+            <Confirmation app={app} />
+          </Route>
+          <Route path="/">
+            {currentUser ? (
+              <Main
+                app={app}
+                className={styles.inner}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                currentPlayer={currentPlayer}
+                players={players}
+                updatePlayer={updatePlayer}
+              />
+            ) : (
+              <Authentication
+                app={app}
+                Realm={Realm}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+                players={players}
+                setPlayers={setPlayers}
+              />
+            )}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
