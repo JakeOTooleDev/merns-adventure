@@ -4,6 +4,8 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 
+import { handleAuthenticationError } from "../utils/MongoDB";
+
 export const Authentication = ({
   app,
   setCurrentUser,
@@ -15,20 +17,22 @@ export const Authentication = ({
   const [password, setPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [signUpMessage, setSignUpMessage] = useState("");
+  // Followed code from MongoDB example for error handling https://github.com/mongodb-university/realm-tutorial-web/blob/final/src/components/LoginScreen.js
+  const [error, setError] = useState({});
 
   const signUpUser = async (event) => {
     event.preventDefault();
     try {
       await app.emailPasswordAuth.registerUser(newEmail, newPassword);
-      setEmail(newEmail);
-      setPassword(newPassword);
-      loginTestUser(event);
-    } catch (err) {
-      console.error(err);
+      setSignUpMessage("Success! Check your e-mail to confirm your account!");
+    } catch (error) {
+      handleAuthenticationError(error, setError);
+      console.error(error);
     }
   };
 
-  const loginTestUser = async (event) => {
+  const loginUser = async (event) => {
     event.preventDefault();
     // * MongoDB Realm email/password login: https://docs.mongodb.com/realm/web/authenticate/#std-label-web-login-email-password
     const credentials = Realm.Credentials.emailPassword(email, password);
@@ -38,8 +42,9 @@ export const Authentication = ({
       setPassword("");
       setupPlayer();
       setCurrentUser(user);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      handleAuthenticationError(error, setError);
+      console.error(error);
     }
   };
 
@@ -65,7 +70,7 @@ export const Authentication = ({
       <h1>MERN's Point and Click Adventure</h1>
       <div>
         <h2>Log In</h2>
-        <form onSubmit={loginTestUser}>
+        <form onSubmit={loginUser}>
           <label htmlFor="email">E-mail</label>
           <InputText
             id="email"
@@ -105,6 +110,9 @@ export const Authentication = ({
             value={newPassword}
           />
           <Button label="Submit" icon="pi pi-check" />
+          <p>{signUpMessage}</p>
+          <p>{error.password}</p>
+          <p>{error.email}</p>
         </form>
       </div>
       <div>
