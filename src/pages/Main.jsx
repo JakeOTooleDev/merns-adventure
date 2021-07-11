@@ -11,9 +11,11 @@ import Inventory from "../components/inventory/Inventory";
 import styles from "./Main.module.scss";
 
 export const Main = ({
+  app,
   className,
   currentPlayer,
   currentUser,
+  setCurrentUser,
   updatePlayer,
   players,
 }) => {
@@ -39,6 +41,15 @@ export const Main = ({
       }
     );
     updatePlayer();
+  };
+
+  const logOutUser = async () => {
+    try {
+      await app.currentUser?.logOut();
+      setCurrentUser(null);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const onPlayerNavClick = async (to) => {
@@ -210,6 +221,15 @@ export const Main = ({
         <p>Communications to the player will appear here.</p>
         <div>{message}</div>
         <button onClick={resetPlayer}>Reset Player</button>
+        <button
+          onClick={() => {
+            console.log("Get me out of here!");
+            logOutUser();
+            console.log("Current User", app.currentUser);
+          }}
+        >
+          Logout
+        </button>
       </section>
       <Inventory
         activeItem={activeItem}

@@ -6,11 +6,8 @@ import { Password } from "primereact/password";
 
 export const Authentication = ({
   app,
-  currentUser,
   setCurrentUser,
-  currentPlayer,
   setCurrentPlayer,
-  players,
   setPlayers,
   Realm,
 }) => {
@@ -32,14 +29,6 @@ export const Authentication = ({
     }
   };
 
-  const logOutUser = async () => {
-    try {
-      await app.currentUser.logOut();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const loginTestUser = async (event) => {
     event.preventDefault();
     // * MongoDB Realm email/password login: https://docs.mongodb.com/realm/web/authenticate/#std-label-web-login-email-password
@@ -47,10 +36,10 @@ export const Authentication = ({
     try {
       const user = await app.logIn(credentials);
       console.log("Logged In:", user);
-      setCurrentUser(user);
       setEmail("");
       setPassword("");
       setupPlayer();
+      setCurrentUser(user);
     } catch (err) {
       console.error(err);
     }
@@ -72,17 +61,6 @@ export const Authentication = ({
       console.error(err);
     }
     console.log("User Logged In");
-  };
-
-  const updatePlayer = async () => {
-    try {
-      const player = await players.findOne({
-        _id: currentUser.id,
-      });
-      setCurrentPlayer(player);
-    } catch (err) {
-      console.error("Error updating player:", err);
-    }
   };
 
   return (
@@ -130,17 +108,6 @@ export const Authentication = ({
           />
           <Button label="Submit" icon="pi pi-check" />
         </form>
-      </div>
-      <div>
-        <h2>Log Out</h2>
-        <Button
-          label="Logout"
-          onClick={() => {
-            console.log("Get me out of here!");
-            logOutUser();
-            console.log("Current User", app.currentUser);
-          }}
-        />
       </div>
     </div>
   );
