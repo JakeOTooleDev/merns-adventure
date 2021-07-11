@@ -18,7 +18,6 @@ export const Authentication = ({
 
   const signUpUser = async (event) => {
     event.preventDefault();
-    console.log("SIGN ME UP SON!", email, password);
     try {
       await app.emailPasswordAuth.registerUser(newEmail, newPassword);
       setEmail(newEmail);
@@ -35,7 +34,6 @@ export const Authentication = ({
     const credentials = Realm.Credentials.emailPassword(email, password);
     try {
       const user = await app.logIn(credentials);
-      console.log("Logged In:", user);
       setEmail("");
       setPassword("");
       setupPlayer();
@@ -60,11 +58,11 @@ export const Authentication = ({
     } catch (err) {
       console.error(err);
     }
-    console.log("User Logged In");
   };
 
   return (
     <div>
+      <h1>MERN's Point and Click Adventure</h1>
       <div>
         <h2>Log In</h2>
         <form onSubmit={loginTestUser}>
@@ -108,6 +106,19 @@ export const Authentication = ({
           />
           <Button label="Submit" icon="pi pi-check" />
         </form>
+      </div>
+      <div>
+        <ul>
+          <li>
+            Source Code:{" "}
+            <a href="https://github.com/JakeOTooleDev/merns-adventure">
+              Repository
+            </a>
+          </li>
+          <li>
+            Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
+          </li>
+        </ul>
       </div>
     </div>
   );

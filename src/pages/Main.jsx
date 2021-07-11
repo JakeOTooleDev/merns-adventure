@@ -6,7 +6,6 @@ import Outside from "../components/scences/outside/Outside";
 import Study from "../components/scences/study/Study";
 
 import Inventory from "../components/inventory/Inventory";
-// import UserDetails from "../components/UserDetail";
 
 import styles from "./Main.module.scss";
 
@@ -199,33 +198,17 @@ export const Main = ({
         setMessage("");
       }}
     >
-      {/* <header className={styles.header}>
-        <h1>MERN's Point and Click Adventure</h1>
-        <UserDetails currentUser={currentUser} currentPlayer={currentPlayer} />
-      </header> */}
-      {/* <section
-        className={cx(styles.gameplay, cursorStyle)}
-        aria-label="gameplay"
-      > */}
-      {/* <div className={styles.sceneContainer}> */}
-      {/* When app initially loads, get last location from player data. */}
-      {/* Once the player has used a nav button, it will be using the apps state to figure out the location. */}
-      {/* The theory is this will be more perfomative. The database will still be updated with the current location everytime. */}
-      {/* Current risk is if the user loses their connection, they will be able to move around, but their location will not be saved */}
       {currentPlayer?.location
         ? locations[currentPlayer?.location]
         : locations[currentPlayer?.location]}
-      {/* </div> */}
-      {/* </section> */}
+
       <section className={styles.communication} aria-label="communication">
         <p>Communications to the player will appear here.</p>
         <div>{message}</div>
         <button onClick={resetPlayer}>Reset Player</button>
         <button
           onClick={() => {
-            console.log("Get me out of here!");
             logOutUser();
-            console.log("Current User", app.currentUser);
           }}
         >
           Logout
@@ -237,9 +220,6 @@ export const Main = ({
         currentPlayer={currentPlayer}
         onInventoryItemClick={onInventoryItemClick}
       />
-      {/* <nav className={styles.nav}>
-        Any menu options or navigation will go here.
-      </nav> */}
     </div>
   );
 };
