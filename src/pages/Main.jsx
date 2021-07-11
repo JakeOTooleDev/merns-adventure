@@ -27,7 +27,7 @@ export const Main = ({
     await players.updateOne(
       { _id: currentUser.id },
       {
-        _id: "60b2a06de0692265ebaeb90e",
+        _id: currentUser.id,
         inventory: [],
         location: "outside",
         gameProgress: {
