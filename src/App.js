@@ -5,6 +5,7 @@ import * as Realm from "realm-web";
 import Authentication from "./pages/Authentication";
 import Confirmation from "./pages/Confirmation";
 import Main from "./pages/Main";
+import Reset from "./pages/Reset";
 
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
@@ -36,6 +37,9 @@ function App() {
     <Router>
       <div className={`${styles.outer}`}>
         <Switch>
+          <Route path="/reset">
+            <Reset app={app} />
+          </Route>
           <Route path="/confirmation">
             <Confirmation app={app} />
           </Route>
