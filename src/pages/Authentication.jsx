@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
@@ -18,8 +18,16 @@ export const Authentication = ({
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [signUpMessage, setSignUpMessage] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
   // Followed code from MongoDB example for error handling https://github.com/mongodb-university/realm-tutorial-web/blob/final/src/components/LoginScreen.js
   const [error, setError] = useState({});
+
+  // Used to clear messages to the user when the component re-renders
+  useEffect(() => {
+    setError({});
+    setSignUpMessage("");
+    setResetMessage("");
+  }, []);
 
   const signUpUser = async (event) => {
     event.preventDefault();
@@ -65,6 +73,18 @@ export const Authentication = ({
     }
   };
 
+  const resetPassword = async () => {
+    try {
+      // https://docs.mongodb.com/realm/web/manage-email-password-users/#reset-a-user-s-password
+      // await app.emailPasswordAuth.sendResetPasswordEmail(email);
+      setResetMessage(
+        "Password has been reset! Check for e-mail for further instructions."
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h1>MERN's Point and Click Adventure</h1>
@@ -87,8 +107,14 @@ export const Authentication = ({
             }}
             value={password}
           />
-          <Button label="Submit" icon="pi pi-check" />
+          <Button label="Log In" icon="pi pi-check" />
         </form>
+        <Button
+          label="Reset Password"
+          icon="pi pi-check"
+          onClick={resetPassword}
+        />
+        <p>{resetMessage}</p>
       </div>
       <div>
         <h2>Sign Up</h2>
@@ -109,7 +135,7 @@ export const Authentication = ({
             }}
             value={newPassword}
           />
-          <Button label="Submit" icon="pi pi-check" />
+          <Button label="Sign Up" icon="pi pi-check" />
           <p>{signUpMessage}</p>
           <p>{error.password}</p>
           <p>{error.email}</p>
