@@ -20,15 +20,28 @@ function App() {
   const [players, setPlayers] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const REALM_APP_ID = "mernadventure-ydamf";
   const app = new Realm.App({ id: REALM_APP_ID });
 
   const logOutUser = async () => {
     try {
-      console.log(app.currentUser);
       await app.currentUser.logOut();
-      console.log(app.currentUser);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const signUpUser = async (event) => {
+    event.preventDefault();
+    console.log("SIGN ME UP SON!", email, password);
+    try {
+      await app.emailPasswordAuth.registerUser(newEmail, newPassword);
+      setEmail(newEmail);
+      setPassword(newPassword);
+      loginTestUser(event);
     } catch (err) {
       console.error(err);
     }
@@ -40,11 +53,17 @@ function App() {
     const credentials = Realm.Credentials.emailPassword(email, password);
     try {
       const user = await app.logIn(credentials);
+      console.log("Logged In:", user);
       setCurrentUser(user);
+      setEmail("");
+      setPassword("");
+      setupPlayer();
     } catch (err) {
       console.error(err);
     }
+  };
 
+  const setupPlayer = async () => {
     // * Created collection handle following the MongoDB Data Access setup guide: https://docs.mongodb.com/realm/web/mongodb/#set-up-your-project
     const mongodb = app.currentUser.mongoClient("mongodb-atlas");
     const playerCollection = mongodb.db("mernsAdventure").collection("players");
@@ -76,6 +95,7 @@ function App() {
   return (
     <div className={`${styles.outer}`}>
       <div>
+        <h2>Log In</h2>
         <form onSubmit={loginTestUser}>
           <label htmlFor="email">E-mail</label>
           <InputText
@@ -97,6 +117,29 @@ function App() {
         </form>
       </div>
       <div>
+        <h2>Sign Up</h2>
+        <form onSubmit={signUpUser}>
+          <label htmlFor="email">E-mail</label>
+          <InputText
+            id="email"
+            onChange={(e) => {
+              setNewEmail(e.target.value);
+            }}
+            value={newEmail}
+          />
+          <label htmlFor="password">Password</label>
+          <Password
+            id="password"
+            onChange={(e) => {
+              setNewPassword(e.target.value);
+            }}
+            value={newPassword}
+          />
+          <Button label="Submit" icon="pi pi-check" />
+        </form>
+      </div>
+      <div>
+        <h2>Log Out</h2>
         <Button
           label="Logout"
           onClick={() => {
