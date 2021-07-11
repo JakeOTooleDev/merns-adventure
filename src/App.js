@@ -29,7 +29,7 @@ function App() {
       console.error("Error updating player:", err);
     }
   };
-  console.log("currentUser", currentUser);
+
   return (
     <div className={`${styles.outer}`}>
       {currentUser ? (
