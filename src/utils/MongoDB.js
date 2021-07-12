@@ -15,23 +15,20 @@ export const handleAuthenticationError = (err, setError) => {
   const errorType = message || status;
   switch (errorType) {
     case "invalid username":
-      setError((prevErr) => ({ ...prevErr, email: "Invalid email address." }));
+      setError("Invalid email address.");
       break;
     case "invalid username/password":
     case "invalid password":
     case "401":
-      setError((err) => ({ ...err, password: "Incorrect password." }));
+      setError("Incorrect password.");
       break;
     case "name already in use":
     case "409":
-      setError((err) => ({ ...err, email: "Email is already registered." }));
+      setError("Email is already registered.");
       break;
     case "password must be between 6 and 128 characters":
     case "400":
-      setError((err) => ({
-        ...err,
-        password: "Password must be between 6 and 128 characters.",
-      }));
+      setError("Password must be between 6 and 128 characters.");
       break;
     default:
       break;

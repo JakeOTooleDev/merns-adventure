@@ -5,22 +5,24 @@ import { Card } from "primereact/card";
 
 import { handleAuthenticationError } from "../utils/MongoDB";
 
+import styles from "./Authentication.module.scss";
+
 export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlayers, Realm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   const [signUpMessage, setSignUpMessage] = useState("");
   const [resetMessage, setResetMessage] = useState("");
   // Followed code from MongoDB example for error handling https://github.com/mongodb-university/realm-tutorial-web/blob/final/src/components/LoginScreen.js
-  const [error, setError] = useState({});
 
   // Used to clear messages to the user when the component re-renders
   useEffect(() => {
-    setError({});
+    setLoginMessage("");
     setSignUpMessage("");
     setResetMessage("");
-  }, []);
+  }, [email, password, newEmail, newPassword]);
 
   const signUpUser = async (event) => {
     event.preventDefault();
@@ -28,7 +30,7 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
       await app.emailPasswordAuth.registerUser(newEmail, newPassword);
       setSignUpMessage("Success! Check your e-mail to confirm your account!");
     } catch (error) {
-      handleAuthenticationError(error, setError);
+      handleAuthenticationError(error, setSignUpMessage);
       console.error(error);
     }
   };
@@ -44,7 +46,7 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
       setupPlayer();
       setCurrentUser(user);
     } catch (error) {
-      handleAuthenticationError(error, setError);
+      handleAuthenticationError(error, setLoginMessage);
       console.error(error);
     }
   };
@@ -77,8 +79,10 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
   };
 
   return (
-    <div>
-      <h1 className="p-text-center p-p-3">MERN's Point and Click Adventure</h1>
+    <div className={styles.authentication}>
+      <header className={styles.header}>
+        <h1 className="p-text-center p-text-bold p-p-3">MERN's Point and Click Adventure</h1>
+      </header>
       <Card className="p-m-3" title="Log in">
         <form className="p-d-flex p-flex-column" onSubmit={loginUser}>
           <label htmlFor="email">E-mail</label>
@@ -90,6 +94,7 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
             type="email"
             className="p-inputtext"
             value={email}
+            validate="true"
           />
 
           <label className="p-mt-2" htmlFor="password">
@@ -105,6 +110,7 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
             value={password}
           />
           <Button className="p-mt-2" label="Log In" icon="pi pi-sign-in" />
+          <p>{loginMessage}</p>
         </form>
 
         <Button className="p-button-text" label="Reset Password" icon="pi pi-replay" onClick={resetPassword} />
@@ -116,15 +122,18 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
           <label htmlFor="newEmail">E-mail</label>
           <input
             id="newEmail"
+            type="email"
             className="p-inputtext"
             onChange={(e) => {
               setNewEmail(e.target.value);
             }}
+            validate="true"
             value={newEmail}
           />
           <label htmlFor="newPassword">Password</label>
           <input
             id="newPassword"
+            type="password"
             className="p-inputtext p-mt-2"
             onChange={(e) => {
               setNewPassword(e.target.value);
@@ -133,8 +142,6 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
           />
           <Button className="p-mt-2" label="Sign Up" icon="pi pi-plus" />
           <p>{signUpMessage}</p>
-          <p>{error.password}</p>
-          <p>{error.email}</p>
         </form>
       </Card>
 
