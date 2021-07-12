@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
+import { Card } from "primereact/card";
 
 import { handleAuthenticationError } from "../utils/MongoDB";
 
-export const Authentication = ({
-  app,
-  setCurrentUser,
-  setCurrentPlayer,
-  setPlayers,
-  Realm,
-}) => {
+export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlayers, Realm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -77,9 +70,7 @@ export const Authentication = ({
     try {
       // https://docs.mongodb.com/realm/web/manage-email-password-users/#reset-a-user-s-password
       // await app.emailPasswordAuth.sendResetPasswordEmail(email);
-      setResetMessage(
-        "Password has been reset! Check for e-mail for further instructions."
-      );
+      setResetMessage("Password has been reset! Check for e-mail for further instructions.");
     } catch (error) {
       console.error(error);
     }
@@ -87,67 +78,70 @@ export const Authentication = ({
 
   return (
     <div>
-      <h1>MERN's Point and Click Adventure</h1>
-      <div>
-        <h2>Log In</h2>
-        <form onSubmit={loginUser}>
+      <h1 className="p-text-center p-p-3">MERN's Point and Click Adventure</h1>
+      <Card className="p-m-3" title="Log in">
+        <form className="p-d-flex p-flex-column" onSubmit={loginUser}>
           <label htmlFor="email">E-mail</label>
-          <InputText
+          <input
             id="email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            type="email"
+            className="p-inputtext"
             value={email}
           />
-          <label htmlFor="password">Password</label>
-          <Password
+
+          <label className="p-mt-2" htmlFor="password">
+            Password
+          </label>
+          <input
             id="password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            type="password"
+            className="p-inputtext"
             value={password}
           />
-          <Button label="Log In" icon="pi pi-check" />
+          <Button className="p-mt-2" label="Log In" icon="pi pi-sign-in" />
         </form>
-        <Button
-          label="Reset Password"
-          icon="pi pi-check"
-          onClick={resetPassword}
-        />
+
+        <Button className="p-button-text" label="Reset Password" icon="pi pi-replay" onClick={resetPassword} />
         <p>{resetMessage}</p>
-      </div>
-      <div>
-        <h2>Sign Up</h2>
-        <form onSubmit={signUpUser}>
+      </Card>
+
+      <Card className="p-m-3" title="Sign Up">
+        <form className="p-d-flex p-flex-column" onSubmit={signUpUser}>
           <label htmlFor="newEmail">E-mail</label>
-          <InputText
+          <input
             id="newEmail"
+            className="p-inputtext"
             onChange={(e) => {
               setNewEmail(e.target.value);
             }}
             value={newEmail}
           />
           <label htmlFor="newPassword">Password</label>
-          <Password
+          <input
             id="newPassword"
+            className="p-inputtext p-mt-2"
             onChange={(e) => {
               setNewPassword(e.target.value);
             }}
             value={newPassword}
           />
-          <Button label="Sign Up" icon="pi pi-check" />
+          <Button className="p-mt-2" label="Sign Up" icon="pi pi-plus" />
           <p>{signUpMessage}</p>
           <p>{error.password}</p>
           <p>{error.email}</p>
         </form>
-      </div>
-      <div>
+      </Card>
+
+      <div className="p-m-3">
         <ul>
           <li>
-            Source Code:{" "}
-            <a href="https://github.com/JakeOTooleDev/merns-adventure">
-              Repository
-            </a>
+            Source Code: <a href="https://github.com/JakeOTooleDev/merns-adventure">Repository</a>
           </li>
           <li>
             Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
