@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
+import { Header } from "../components/layout/Header";
 import { handleAuthenticationError } from "../utils/MongoDB";
 
 import styles from "./Authentication.module.scss";
@@ -80,9 +81,7 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
 
   return (
     <div className={styles.authentication}>
-      <header className={styles.header}>
-        <h1 className="p-text-center p-text-bold p-p-3">MERN's Point and Click Adventure</h1>
-      </header>
+      <Header />
       <Card className="p-m-3" title="Log in">
         <form className="p-d-flex p-flex-column" onSubmit={loginUser}>
           <label htmlFor="email">E-mail</label>
