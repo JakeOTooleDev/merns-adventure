@@ -131,11 +131,13 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
               validate="true"
               value={newEmail}
             />
-            <label htmlFor="newPassword">Password</label>
+            <label className="p-mt-2" htmlFor="newPassword">
+              Password
+            </label>
             <input
               id="newPassword"
               type="password"
-              className="p-inputtext p-mt-2"
+              className="p-inputtext"
               onChange={(e) => {
                 setNewPassword(e.target.value);
               }}
