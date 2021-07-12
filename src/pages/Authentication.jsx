@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import cx from "classnames";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
@@ -82,77 +83,79 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
   return (
     <div className={styles.authentication}>
       <Header />
-      <Card className="p-m-3" title="Log in">
-        <form className="p-d-flex p-flex-column" onSubmit={loginUser}>
-          <label htmlFor="email">E-mail</label>
-          <input
-            id="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            type="email"
-            className="p-inputtext"
-            value={email}
-            validate="true"
-          />
+      <div className="p-d-flex p-flex-column p-ai-center">
+        <Card className={cx("p-m-3", styles.card)} title="Log in">
+          <form className="p-d-flex p-flex-column" onSubmit={loginUser}>
+            <label htmlFor="email">E-mail</label>
+            <input
+              id="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              type="email"
+              className="p-inputtext"
+              value={email}
+              validate="true"
+            />
 
-          <label className="p-mt-2" htmlFor="password">
-            Password
-          </label>
-          <input
-            id="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            type="password"
-            className="p-inputtext"
-            value={password}
-          />
-          <Button className="p-mt-2" label="Log In" icon="pi pi-sign-in" />
-          <p>{loginMessage}</p>
-        </form>
+            <label className="p-mt-2" htmlFor="password">
+              Password
+            </label>
+            <input
+              id="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              type="password"
+              className="p-inputtext"
+              value={password}
+            />
+            <Button className="p-mt-2" label="Log In" icon="pi pi-sign-in" />
+            <p>{loginMessage}</p>
+          </form>
 
-        <Button className="p-button-text" label="Reset Password" icon="pi pi-replay" onClick={resetPassword} />
-        <p>{resetMessage}</p>
-      </Card>
+          <Button className="p-button-text" label="Reset Password" icon="pi pi-replay" onClick={resetPassword} />
+          <p>{resetMessage}</p>
+        </Card>
 
-      <Card className="p-m-3" title="Sign Up">
-        <form className="p-d-flex p-flex-column" onSubmit={signUpUser}>
-          <label htmlFor="newEmail">E-mail</label>
-          <input
-            id="newEmail"
-            type="email"
-            className="p-inputtext"
-            onChange={(e) => {
-              setNewEmail(e.target.value);
-            }}
-            validate="true"
-            value={newEmail}
-          />
-          <label htmlFor="newPassword">Password</label>
-          <input
-            id="newPassword"
-            type="password"
-            className="p-inputtext p-mt-2"
-            onChange={(e) => {
-              setNewPassword(e.target.value);
-            }}
-            value={newPassword}
-          />
-          <Button className="p-mt-2" label="Sign Up" icon="pi pi-plus" />
-          <p>{signUpMessage}</p>
-        </form>
-      </Card>
+        <Card className={cx("p-m-3", styles.card)} title="Sign Up">
+          <form className="p-d-flex p-flex-column" onSubmit={signUpUser}>
+            <label htmlFor="newEmail">E-mail</label>
+            <input
+              id="newEmail"
+              type="email"
+              className="p-inputtext"
+              onChange={(e) => {
+                setNewEmail(e.target.value);
+              }}
+              validate="true"
+              value={newEmail}
+            />
+            <label htmlFor="newPassword">Password</label>
+            <input
+              id="newPassword"
+              type="password"
+              className="p-inputtext p-mt-2"
+              onChange={(e) => {
+                setNewPassword(e.target.value);
+              }}
+              value={newPassword}
+            />
+            <Button className="p-mt-2" label="Sign Up" icon="pi pi-plus" />
+            <p>{signUpMessage}</p>
+          </form>
+        </Card>
 
-      <div className="p-m-3">
-        <ul>
-          <li>
-            Source Code: <a href="https://github.com/JakeOTooleDev/merns-adventure">Repository</a>
-          </li>
-          <li>
-            Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
-          </li>
-        </ul>
+        <div className="p-m-3">
+          <ul>
+            <li>
+              Source Code: <a href="https://github.com/JakeOTooleDev/merns-adventure">Repository</a>
+            </li>
+            <li>
+              Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

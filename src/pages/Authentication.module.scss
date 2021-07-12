@@ -1,6 +1,10 @@
 .authentication {
   background-color: var(--surface-200);
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.card {
+  width: 75vw;
 }
 
 .header {
