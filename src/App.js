@@ -10,6 +10,7 @@ import Reset from "./pages/Reset";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
 import styles from "./App.module.scss";
 
 function App() {
