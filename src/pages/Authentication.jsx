@@ -151,10 +151,13 @@ export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlaye
         <div className="p-m-3">
           <ul>
             <li>
-              Source Code: <a href="https://github.com/JakeOTooleDev/merns-adventure">Repository</a>
+              Artwork by: <a href="https://www.instagram.com/badponies.illustration/?hl=en">Sarah Bogosh</a>
             </li>
             <li>
               Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
+            </li>
+            <li>
+              Source Code: <a href="https://github.com/JakeOTooleDev/merns-adventure">Repository</a>
             </li>
           </ul>
         </div>
