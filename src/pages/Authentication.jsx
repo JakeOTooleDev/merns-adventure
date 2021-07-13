@@ -1,33 +1,30 @@
 import { useEffect, useState } from "react";
+import cx from "classnames";
 
 import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
+import { Card } from "primereact/card";
 
+import { Header } from "../components/layout/Header";
 import { handleAuthenticationError } from "../utils/MongoDB";
 
-export const Authentication = ({
-  app,
-  setCurrentUser,
-  setCurrentPlayer,
-  setPlayers,
-  Realm,
-}) => {
+import styles from "./Authentication.module.scss";
+
+export const Authentication = ({ app, setCurrentUser, setCurrentPlayer, setPlayers, Realm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   const [signUpMessage, setSignUpMessage] = useState("");
   const [resetMessage, setResetMessage] = useState("");
   // Followed code from MongoDB example for error handling https://github.com/mongodb-university/realm-tutorial-web/blob/final/src/components/LoginScreen.js
-  const [error, setError] = useState({});
 
   // Used to clear messages to the user when the component re-renders
   useEffect(() => {
-    setError({});
+    setLoginMessage("");
     setSignUpMessage("");
     setResetMessage("");
-  }, []);
+  }, [email, password, newEmail, newPassword]);
 
   const signUpUser = async (event) => {
     event.preventDefault();
@@ -35,7 +32,7 @@ export const Authentication = ({
       await app.emailPasswordAuth.registerUser(newEmail, newPassword);
       setSignUpMessage("Success! Check your e-mail to confirm your account!");
     } catch (error) {
-      handleAuthenticationError(error, setError);
+      handleAuthenticationError(error, setSignUpMessage);
       console.error(error);
     }
   };
@@ -51,7 +48,7 @@ export const Authentication = ({
       setupPlayer();
       setCurrentUser(user);
     } catch (error) {
-      handleAuthenticationError(error, setError);
+      handleAuthenticationError(error, setLoginMessage);
       console.error(error);
     }
   };
@@ -77,82 +74,90 @@ export const Authentication = ({
     try {
       // https://docs.mongodb.com/realm/web/manage-email-password-users/#reset-a-user-s-password
       // await app.emailPasswordAuth.sendResetPasswordEmail(email);
-      setResetMessage(
-        "Password has been reset! Check for e-mail for further instructions."
-      );
+      setResetMessage("Password has been reset! Check for e-mail for further instructions.");
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div>
-      <h1>MERN's Point and Click Adventure</h1>
-      <div>
-        <h2>Log In</h2>
-        <form onSubmit={loginUser}>
-          <label htmlFor="email">E-mail</label>
-          <InputText
-            id="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            value={email}
-          />
-          <label htmlFor="password">Password</label>
-          <Password
-            id="password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
-          />
-          <Button label="Log In" icon="pi pi-check" />
-        </form>
-        <Button
-          label="Reset Password"
-          icon="pi pi-check"
-          onClick={resetPassword}
-        />
-        <p>{resetMessage}</p>
-      </div>
-      <div>
-        <h2>Sign Up</h2>
-        <form onSubmit={signUpUser}>
-          <label htmlFor="newEmail">E-mail</label>
-          <InputText
-            id="newEmail"
-            onChange={(e) => {
-              setNewEmail(e.target.value);
-            }}
-            value={newEmail}
-          />
-          <label htmlFor="newPassword">Password</label>
-          <Password
-            id="newPassword"
-            onChange={(e) => {
-              setNewPassword(e.target.value);
-            }}
-            value={newPassword}
-          />
-          <Button label="Sign Up" icon="pi pi-check" />
-          <p>{signUpMessage}</p>
-          <p>{error.password}</p>
-          <p>{error.email}</p>
-        </form>
-      </div>
-      <div>
-        <ul>
-          <li>
-            Source Code:{" "}
-            <a href="https://github.com/JakeOTooleDev/merns-adventure">
-              Repository
-            </a>
-          </li>
-          <li>
-            Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
-          </li>
-        </ul>
+    <div className={styles.authentication}>
+      <Header />
+      <div className="p-d-flex p-flex-column p-ai-center">
+        <Card className={cx("p-m-3", styles.card)} title="Log in">
+          <form className="p-d-flex p-flex-column" onSubmit={loginUser}>
+            <label htmlFor="email">E-mail</label>
+            <input
+              id="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              type="email"
+              className="p-inputtext"
+              value={email}
+              validate="true"
+            />
+
+            <label className="p-mt-2" htmlFor="password">
+              Password
+            </label>
+            <input
+              id="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              type="password"
+              className="p-inputtext"
+              value={password}
+            />
+            <Button className="p-mt-2" label="Log In" icon="pi pi-sign-in" />
+            <p>{loginMessage}</p>
+          </form>
+
+          <Button className="p-button-text" label="Reset Password" icon="pi pi-replay" onClick={resetPassword} />
+          <p>{resetMessage}</p>
+        </Card>
+
+        <Card className={cx("p-m-3", styles.card)} title="Sign Up">
+          <form className="p-d-flex p-flex-column" onSubmit={signUpUser}>
+            <label htmlFor="newEmail">E-mail</label>
+            <input
+              id="newEmail"
+              type="email"
+              className="p-inputtext"
+              onChange={(e) => {
+                setNewEmail(e.target.value);
+              }}
+              validate="true"
+              value={newEmail}
+            />
+            <label className="p-mt-2" htmlFor="newPassword">
+              Password
+            </label>
+            <input
+              id="newPassword"
+              type="password"
+              className="p-inputtext"
+              onChange={(e) => {
+                setNewPassword(e.target.value);
+              }}
+              value={newPassword}
+            />
+            <Button className="p-mt-2" label="Sign Up" icon="pi pi-plus" />
+            <p>{signUpMessage}</p>
+          </form>
+        </Card>
+
+        <div className="p-m-3">
+          <ul>
+            <li>
+              Source Code: <a href="https://github.com/JakeOTooleDev/merns-adventure">Repository</a>
+            </li>
+            <li>
+              Created by: <a href="https://www.jakeotoole.com">Jake O'Toole</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

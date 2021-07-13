@@ -1,4 +1,12 @@
 import { useHistory } from "react-router-dom";
+import cx from "classnames";
+
+import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+
+import { Header } from "../components/layout/Header";
+
+import styles from "./Confirmation.module.scss";
 
 export const Confirmation = ({ app }) => {
   // https://reactrouter.com/web/api/Hooks/usehistory
@@ -22,8 +30,14 @@ export const Confirmation = ({ app }) => {
   };
   return (
     <div>
-      <h1>Confirm your E-mail Address!</h1>
-      <button onClick={() => confirmMernUser()}>Confirm!</button>
+      <Header />
+      <div className="p-d-flex p-jc-center p-ai-center">
+        <Card className={cx("p-m-5", styles.confirmation)} title="Confirm your e-mail address!">
+          <div className="p-d-flex p-jc-center">
+            <Button className="p-button-lg" label="Confirm" onClick={() => confirmMernUser()} icon="pi pi-check" />
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };
